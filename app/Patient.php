@@ -13,11 +13,12 @@ class Patient extends Model
 
     public $timestamps = 'true';
 
+    public function location(){
+        return $this->hasMany('App\Location');
+   
+        } 
     
- 	public function location(){
- 	return $this->hasMany('App\Location');
-
- 	} 
+ 	  
  
 }
 

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Locations extends Migration
+class Districts extends Migration
 {
     /**
      * Run the migrations.
@@ -14,11 +14,10 @@ class Locations extends Migration
     public function up()
     {
         //
-        Schema::create('locations', function (Blueprint $table) {
+        Schema::create('districts', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->mediumText('address');
-            $table->integer('patient_id')->unsigned()->index();
-            $table->foreign('patient_id')->references('id')->on('patients');
+            $table->mediumText('name');
+            $table->integer('counts');
             $table->timestamps();
         });
     }
@@ -31,7 +30,7 @@ class Locations extends Migration
     public function down()
     {
         //
-        Schema::dropIfExists('locations');
+        Schema::dropIfExists('districts');
 
     }
 }
