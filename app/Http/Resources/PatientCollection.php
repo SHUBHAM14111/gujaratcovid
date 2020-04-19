@@ -17,13 +17,13 @@ class PatientCollection extends JsonResource
        return [
             'type'          => 'patients',
             'id'            => (string)$this->id,
-            'attributes'    => [
+        
                 'name' => $this->name,
                 'address' => $this->address,
                 'created' => $this->created_at,
                 'updated' => $this->updated_at,
                  
-            ],
+            
         ];
     
     }
