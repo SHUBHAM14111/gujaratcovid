@@ -8,10 +8,10 @@
                 <div class="card-body" v-for="patient in patients" v-bind:key="patient.id">
 
                 
-
                         <h2>{{ patient.address }}</h2>
                         <h2>{{ patient.name }}</h2>
-              
+                        <h2>{{ patient.longitude }}</h2>
+                        <h2>{{ patient.latitude }}</h2>
            
 
                 </div>
@@ -30,7 +30,9 @@
               patients: {
                   id: '',
                   name:'',
-                  address:''
+                  address:'',
+                  latitude:'',
+                  longitude:''
               },
             }
         },
