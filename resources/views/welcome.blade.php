@@ -20,7 +20,8 @@
         <div id="app">        
                
             <address-component></address-component>
-                          
+            <district-component></district-component>
+
           </div>
 
     </body>

@@ -3,15 +3,14 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">Address List</div>
+                <div class="card-header">District List</div>
                 
-                <div class="card-body" v-for="patient in patients" v-bind:key="patient.id">
+                <div class="card-body" v-for="district in districts" v-bind:key="district.id">
 
                 
-                        <h2>{{ patient.address }}</h2>
-                        <h2>{{ patient.name }}</h2>
-                        <h2>{{ patient.longitude }}</h2>
-                        <h2>{{ patient.latitude }}</h2>
+                        <h2>{{ district.name }}:-{{ district.counts }}</h2>
+                        
+                        
            
 
                 </div>
@@ -26,28 +25,27 @@
 
         data() {
             return {
-              patients: [],
-              patients: {
+              districts: [],
+              districts: {
                   id: '',
                   name:'',
-                  address:'',
-                  latitude:'',
-                  longitude:''
+                  counts:''
+                  
               },
             }
         },
         methods: {
-            getpatient(){
-                fetch('api/patients')
+            getdistrict(){
+                fetch('api/districts')
                      .then(res =>res.json())
                      .then(res=>{
                         //console.log(res.data);
-                        this.patients = res.data;
+                        this.districts = res.data;
                      })
             }
         },
         created() {
-            this.getpatient()
+            this.getdistrict()
         }
     }
 </script> 
