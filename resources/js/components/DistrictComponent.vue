@@ -8,7 +8,7 @@
                 <div class="card-body" v-for="district in districts" v-bind:key="district.id">
 
                 
-                        <h2>{{ district.name }}:-{{ district.counts }}</h2>
+                        <h2>{{ district.name }}:-{{ district.infected }}</h2>
                         
                         
            
@@ -29,7 +29,11 @@
               districts: {
                   id: '',
                   name:'',
-                  counts:''
+                  lat:'',
+                  cured:'',
+                  died:'',
+                  infected:''
+
                   
               },
             }
@@ -46,6 +50,14 @@
         },
         created() {
             this.getdistrict()
+            this.$vuetify.theme.dark = true;
+
         }
-    }
+
+
+   
+
+    
+}
+</script>
 </script> 

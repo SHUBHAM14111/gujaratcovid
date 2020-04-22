@@ -19,3 +19,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 Route::get('/patients', 'PatientController@index');
 Route::get('/districts', 'DistrictController@index');
+Route::get('district/{name}','DistrictController@show');

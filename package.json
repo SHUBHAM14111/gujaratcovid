@@ -22,5 +22,12 @@
         "sass-loader": "^8.0.0",
         "vue": "^2.5.17",
         "vue-template-compiler": "^2.6.10"
+    },
+    "dependencies": {
+        "vue-browser-geolocation": "^1.8.0",
+        "vue-loader": "^15.9.1",
+        "vue2-google-maps": "^0.10.7",
+        "vuetify": "^2.2.22",
+        "vuetify-loader": "^1.4.3"
     }
 }
