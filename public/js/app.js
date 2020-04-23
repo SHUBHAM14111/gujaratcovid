@@ -38915,7 +38915,9 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c("v-footer", { attrs: { app: "" } }, [_c("span", [_vm._v("© 2019")])])
+      _c("v-footer", { attrs: { app: "" } }, [
+        _c("span", [_vm._v("GujaratCovid© 2020")])
+      ])
     ],
     1
   )
