@@ -22,8 +22,8 @@ class PatientCollection extends JsonResource
                 'address' => $this->address,
                 'created' => $this->created_at,
                 'updated' => $this->updated_at,
-                'latitude' => $this->latitude,
-                'longitude' => $this->longitude,
+                'lat' => $this->latitude,
+                'lng' => $this->longitude,
             
         ];
     

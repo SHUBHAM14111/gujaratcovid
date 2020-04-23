@@ -1932,6 +1932,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return _defineProperty({
@@ -1940,6 +1946,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       id: '',
       name: '',
       lat: '',
+      lng: '',
       cured: '',
       died: '',
       infected: ''
@@ -1959,7 +1966,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   created: function created() {
     this.getdistrict();
-    this.$vuetify.theme.dark = true;
   }
 });
 
@@ -1974,6 +1980,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
 //
 //
 //
@@ -2073,32 +2081,37 @@ __webpack_require__.r(__webpack_exports__);
         //default coordinates of Gujarat
         lng: 71.1924
       },
-      markers: [{
-        lat: 21.1702,
-        lng: 72.8311
-      }, {
-        lat: 22.3072,
-        lng: 73.1812
-      }, {
-        lat: 23.0225,
-        lng: 72.5714
-      }]
+      markers: []
     };
   },
+  methods: {
+    getlocation: function getlocation() {
+      var _this = this;
+
+      fetch('api/patients').then(function (res) {
+        return res.json();
+      }).then(function (res) {
+        //console.log(res.data);
+        _this.markers = res.data;
+      });
+    }
+  },
   created: function created() {
-    var _this = this;
+    var _this2 = this;
 
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function (position) {
-        console.log(position);
-        _this.uc.lat = position.coords.latitude;
-        _this.uc.lng = position.coords.longitude;
+        _this2.uc.lat = position.coords.latitude;
+        _this2.uc.lng = position.coords.longitude;
+        console.log(uc);
       }, function () {
         alert("it fails");
       });
     } else {
       alert("Browser not supported");
     }
+
+    this.getlocation();
   }
 });
 
@@ -38733,17 +38746,52 @@ var render = function() {
               _vm._v("District List")
             ]),
             _vm._v(" "),
-            _vm._l(_vm.districts, function(district) {
-              return _c("div", { key: district.id, staticClass: "card-body" }, [
-                _c("h2", [
-                  _vm._v(
-                    _vm._s(district.name) + ":-" + _vm._s(district.infected)
-                  )
-                ])
-              ])
-            })
+            _c(
+              "v-list",
+              { attrs: { dense: "" } },
+              _vm._l(_vm.districts, function(district) {
+                return _c(
+                  "div",
+                  { key: district.id, staticClass: "card-body" },
+                  [
+                    _c(
+                      "v-list-item",
+                      { attrs: { link: "" } },
+                      [
+                        _c(
+                          "v-list-item-action",
+                          [_c("v-icon", [_vm._v("mdi-view-dashboard")])],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "v-list-item-content",
+                          [
+                            _c("v-list-item-title", [
+                              _vm._v(
+                                _vm._s(district.name) +
+                                  "  " +
+                                  _vm._s(district.infected) +
+                                  " " +
+                                  _vm._s(district.cured) +
+                                  " " +
+                                  _vm._s(district.died)
+                              )
+                            ])
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                )
+              }),
+              0
+            )
           ],
-          2
+          1
         )
       ])
     ])
@@ -38802,7 +38850,11 @@ var render = function() {
                     1
                   ),
                   _vm._v(" "),
-                  _c("v-list-item-content", [_c("district-component")], 1)
+                  _c("v-list-item-content", [
+                    _vm._v(
+                      "\n                    Addon Solutions\n                "
+                    )
+                  ])
                 ],
                 1
               ),
@@ -38856,7 +38908,7 @@ var render = function() {
           _c(
             "v-container",
             { staticClass: "fill-height", attrs: { fluid: "" } },
-            [_c("Map")],
+            [_c("Map"), _vm._v(" "), _c("district-component")],
             1
           )
         ],

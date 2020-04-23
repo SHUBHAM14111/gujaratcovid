@@ -7,7 +7,7 @@
                         <v-icon>mdi-view-dashboard</v-icon>
                     </v-list-item-action>
                     <v-list-item-content>
-                        <district-component></district-component>
+                        Addon Solutions
                     </v-list-item-content>
                 </v-list-item>
                 <v-list-item link>
@@ -29,6 +29,8 @@
         <v-content>
             <v-container class="fill-height" fluid>
                 <Map></Map>
+                <district-component></district-component>
+
             </v-container>
 
         </v-content>

@@ -30,29 +30,29 @@ export default {
                 lat: 22.2587, //default coordinates of Gujarat
                 lng: 71.1924
             },
-            markers: [
-                {
-                    lat: 21.1702,
-                    lng: 72.8311
-                },
-                {
-                    lat: 22.3072,
-                    lng: 73.1812
-                },
-                {
-                    lat: 23.0225,
-                    lng: 72.5714
-                }
-            ]
+            markers: [],
+            
         };
     },
+    methods: {
+            getlocation(){
+                fetch('api/patients')
+                     .then(res =>res.json())
+                     .then(res=>{
+                        //console.log(res.data);
+                        this.markers = res.data;
+                     })
+            }
+        },
+       
     created() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
                 position => {
-                    console.log(position);
+                    
                     this.uc.lat = position.coords.latitude;
                     this.uc.lng = position.coords.longitude;
+                    console.log(uc);
                 },
                 () => {
                     alert("it fails");
@@ -61,6 +61,8 @@ export default {
         } else {
             alert("Browser not supported");
         }
+        this.getlocation();
+
     }
 };
 </script>
