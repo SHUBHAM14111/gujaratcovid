@@ -2,7 +2,7 @@
     <div>
         <GmapMap
             :center="coordinates"
-            :zoom="8"
+            :zoom="7.4"
             style="width: 1200px; height: 101vh"
         >
             <gmap-custom-marker :marker="uc">
@@ -13,14 +13,16 @@
                     class="animated infinite flash"
                 />
             </gmap-custom-marker>
-            <GmapMarker
-                :key="index"
-                v-for="(m, index) in markers"
-                :position="m"
-                :clickable="true"
-                :draggable="false"
-                @click="center = m.position"
-            />
+            <cluster>
+                <GmapMarker
+                    :key="index"
+                    v-for="(m, index) in markers"
+                    :position="m"
+                    :clickable="true"
+                    :draggable="false"
+                    @click="center = m.position"
+                />
+            </cluster>
         </GmapMap>
     </div>
 </template>
@@ -30,8 +32,8 @@ export default {
     data() {
         return {
             coordinates: {
-                lat: 22.2587, //default coordinates of Gujarat
-                lng: 71.1924
+                lat: 22, //default coordinates of Gujarat
+                lng: 72
             },
             uc: {
                 lat: 22.2587, //default coordinates of Gujarat

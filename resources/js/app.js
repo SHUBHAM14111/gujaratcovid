@@ -12,6 +12,9 @@ Vue.use(VueGeolocation);
 import GmapCustomMarker from "vue2-gmap-custom-marker";
 Vue.use(GmapCustomMarker);
 import * as VueGoogleMaps from "vue2-google-maps";
+import GmapCluster from "vue2-google-maps/dist/components/cluster";
+
+// Note: the name "cluster" below is the one to use in the template tags
 
 Vue.use(VueGoogleMaps, {
     load: {
@@ -41,7 +44,7 @@ Vue.component(
     "district-component",
     require("./components/DistrictComponent.vue").default
 );
-
+Vue.component("cluster", GmapCluster);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
