@@ -19,6 +19,9 @@ Vue.use(VueGoogleMaps, {
 });
 
 import Vuetify from "../plugins/vuetify";
+import VueFuse from 'vue-fuse'
+ 
+Vue.use(VueFuse)
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -35,7 +38,6 @@ Vue.component(
     require("./components/ExampleComponent.vue").default
 );
 Vue.component("Map", require("./components/Map.vue").default);
-Vue.component("district-component", require("./components/DistrictComponent.vue").default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

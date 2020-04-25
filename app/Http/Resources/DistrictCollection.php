@@ -19,9 +19,13 @@ class DistrictCollection extends JsonResource
             'id'            => (string)$this->id,
         
                 'name' => $this->name,
-                'counts' => $this->counts,
+                'infected' => $this->infected,
+                'cured' => $this->cured,
+                'died' => $this->died,
                 'created' => $this->created_at,
                 'updated' => $this->updated_at,
+                'lat' => $this->lat,
+                'lng' => $this->lng,
                 
             
         ];

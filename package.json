@@ -25,6 +25,7 @@
     },
     "dependencies": {
         "vue-browser-geolocation": "^1.8.0",
+        "vue-fuse": "^2.2.1",
         "vue-loader": "^15.9.1",
         "vue2-google-maps": "^0.10.7",
         "vuetify": "^2.2.22",
