@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\District;
-use App\Http\Resources\District as DistrictResource;
+use App\Http\Resources\DistrictCollection as DistrictCollection;
 class DistrictController extends Controller
 {
     /**
@@ -18,7 +18,7 @@ class DistrictController extends Controller
         //
         $districts = District::all();
         //$patients = DB::select('SELECT * FROM patients');
-        return DistrictResource::collection($districts);
+        return DistrictCollection::collection($districts);
     }
 
     /**

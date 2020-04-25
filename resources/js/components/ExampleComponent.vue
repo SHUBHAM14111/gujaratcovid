@@ -1,7 +1,9 @@
 <template>
+
     <v-app id="inspire">
+        
         <v-navigation-drawer v-model="drawer" app clipped>
-            <v-list dense>
+            <v-list nav dense>
                 <v-list-item link>
                     <v-list-item-action>
                         <v-icon>mdi-view-dashboard</v-icon>
@@ -27,11 +29,9 @@
         </v-app-bar>
 
         <v-content>
-            <v-container class="fill-height" fluid>
+            
                 <Map></Map>
-                <district-component></district-component>
 
-            </v-container>
 
         </v-content>
 

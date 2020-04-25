@@ -1,29 +1,28 @@
 <template>
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">District List</div>
+ <v-app id="inspire">
+    <v-simple-table>
+      <template v-slot:default>
+        <thead>
+          <tr>
+            <th class="text-left">District</th>
+            <th class="text-left">Infected</th>
+            <th class="text-left">Cured</th>
+            <th class="text-left">Died</th>
 
-                    <v-list dense>
-                        
-                     <div class="card-body" v-for="district in districts" v-bind:key="district.id">
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="district in districts" :key="district.id">
+            <td>{{ district.name }}</td>
+            <td>{{ district.infected }}</td>
+            <td>{{ district.cured }}</td>
+            <td>{{ district.died }}</td>
 
-                <v-list-item link>
-                    <v-list-item-action>
-                        <v-icon>mdi-view-dashboard</v-icon>
-                    </v-list-item-action>
-                    <v-list-item-content>
-                        <v-list-item-title>{{district.name}}  {{district.infected}} {{district.cured}} {{district.died}}</v-list-item-title>
-
-                    </v-list-item-content>
-                </v-list-item>
-                     </div>
-                </v-list>
-            </div>
-        </div>
-    </div>
-</div>
+          </tr>
+        </tbody>
+      </template>
+    </v-simple-table>
+  </v-app>
 </template>
 
 <script>

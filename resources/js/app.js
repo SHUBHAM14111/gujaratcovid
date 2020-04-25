@@ -13,9 +13,6 @@ import GmapCustomMarker from "vue2-gmap-custom-marker";
 Vue.use(GmapCustomMarker);
 import * as VueGoogleMaps from "vue2-google-maps";
 import GmapCluster from "vue2-google-maps/dist/components/cluster";
-
-// Note: the name "cluster" below is the one to use in the template tags
-
 Vue.use(VueGoogleMaps, {
     load: {
         key: "AIzaSyCP9uBD7K6ncLh6XeowYEgrRCesBaYj6e0",
@@ -24,6 +21,9 @@ Vue.use(VueGoogleMaps, {
 });
 
 import Vuetify from "../plugins/vuetify";
+import VueFuse from 'vue-fuse'
+ 
+Vue.use(VueFuse)
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -40,16 +40,10 @@ Vue.component(
     require("./components/ExampleComponent.vue").default
 );
 Vue.component("Map", require("./components/Map.vue").default);
-Vue.component(
-    "district-component",
-    require("./components/DistrictComponent.vue").default
-);
+
 Vue.component("cluster", GmapCluster);
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+Vue.component("gmap-custom-marker", GmapCustomMarker);
+
 
 const app = new Vue({
     vuetify: Vuetify,
