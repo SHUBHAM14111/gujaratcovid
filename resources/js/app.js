@@ -9,8 +9,10 @@ require("./bootstrap");
 window.Vue = require("vue");
 import VueGeolocation from "vue-browser-geolocation";
 Vue.use(VueGeolocation);
+import GmapCustomMarker from "vue2-gmap-custom-marker";
+Vue.use(GmapCustomMarker);
 import * as VueGoogleMaps from "vue2-google-maps";
-
+import GmapCluster from "vue2-google-maps/dist/components/cluster";
 Vue.use(VueGoogleMaps, {
     load: {
         key: "AIzaSyCP9uBD7K6ncLh6XeowYEgrRCesBaYj6e0",
@@ -39,11 +41,9 @@ Vue.component(
 );
 Vue.component("Map", require("./components/Map.vue").default);
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+Vue.component("cluster", GmapCluster);
+Vue.component("gmap-custom-marker", GmapCustomMarker);
+
 
 const app = new Vue({
     vuetify: Vuetify,

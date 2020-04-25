@@ -2,18 +2,27 @@
     <div>
         <GmapMap
             :center="coordinates"
-            :zoom="7"
-            style="width: 1200px; height: 101vh"
+            :zoom="val"
+            style="width: auto; height: 101vh"
         >
-            <GmapMarker :position="uc">You are here</GmapMarker>
-            <GmapMarker
-                :key="index"
-                v-for="(m, index) in markers"
-                :position="m"
-                :clickable="true"
-                :draggable="false"
-                @click="center = m.position"
-            />
+        <gmap-custom-marker :marker="uc">
+                <img
+                    src="https://cdn4.iconfinder.com/data/icons/user-icons-5/100/user-17-512.png"
+                    alt=""
+                    height="40px"
+                    class="animated infinite flash"
+                />
+            </gmap-custom-marker>
+            <cluster>
+                <GmapMarker
+                    :key="index"
+                    v-for="(m, index) in markers"
+                    :position="m"
+                    :clickable="true"
+                    :draggable="false"
+                    @click="center = m.position"
+                />
+            </cluster>
             
         </GmapMap>
         <v-col cols="12" sm="6" md="3">
@@ -61,6 +70,7 @@ export default {
                 lat: 22.2587, //default coordinates of Gujarat
                 lng: 71.1924
             },
+            val: 7,
             uc: {
                 lat: 22.2587, //default coordinates of Gujarat
                 lng: 71.1924
@@ -72,7 +82,7 @@ export default {
             
         };
     },
-    computed: {
+   computed: {
             filteredList() {
             if(this.search){
                 return this.districts.filter(district => {
@@ -119,7 +129,6 @@ export default {
             alert("Browser not supported");
         }
         this.getlocation();
-
     }
 };
 </script>
