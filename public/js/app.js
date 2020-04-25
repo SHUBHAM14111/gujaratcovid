@@ -97355,7 +97355,7 @@ module.exports = function(module) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_browser_geolocation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-browser-geolocation */ "./node_modules/vue-browser-geolocation/dist/vue-geolocation.js");
 /* harmony import */ var vue_browser_geolocation__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_browser_geolocation__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vue2_gmap_custom_marker__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vue2-gmap-custom-marker */ "./node_modules/vue2-gmap-custom-marker/gmap-custom-marker.vue");
+/* harmony import */ var vue2_gmap_custom_marker__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue2-gmap-custom-marker */ "./node_modules/vue2-gmap-custom-marker/gmap-custom-marker.vue");
 /* harmony import */ var vue2_google_maps__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue2-google-maps */ "./node_modules/vue2-google-maps/dist/main.js");
 /* harmony import */ var vue2_google_maps__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue2_google_maps__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var vue2_google_maps_dist_components_cluster__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue2-google-maps/dist/components/cluster */ "./node_modules/vue2-google-maps/dist/components/cluster.js");
@@ -97374,7 +97374,7 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 
 Vue.use(vue_browser_geolocation__WEBPACK_IMPORTED_MODULE_0___default.a);
 
-Vue.use(vue2_gmap_custom_marker__WEBPACK_IMPORTED_MODULE_6__["default"]);
+Vue.use(vue2_gmap_custom_marker__WEBPACK_IMPORTED_MODULE_1__["default"]);
 
 
 Vue.use(vue2_google_maps__WEBPACK_IMPORTED_MODULE_2__, {
@@ -97400,7 +97400,7 @@ Vue.use(vue_fuse__WEBPACK_IMPORTED_MODULE_5___default.a);
 Vue.component("example-component", __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue")["default"]);
 Vue.component("Map", __webpack_require__(/*! ./components/Map.vue */ "./resources/js/components/Map.vue")["default"]);
 Vue.component("cluster", vue2_google_maps_dist_components_cluster__WEBPACK_IMPORTED_MODULE_3___default.a);
-Vue.component("gmap-custom-marker", vue2_gmap_custom_marker__WEBPACK_IMPORTED_MODULE_6__["default"]);
+Vue.component("gmap-custom-marker", vue2_gmap_custom_marker__WEBPACK_IMPORTED_MODULE_1__["default"]);
 var app = new Vue({
   vuetify: _plugins_vuetify__WEBPACK_IMPORTED_MODULE_4__["default"],
   el: "#app"
