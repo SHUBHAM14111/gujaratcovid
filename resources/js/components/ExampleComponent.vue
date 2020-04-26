@@ -1,7 +1,5 @@
 <template>
-
     <v-app id="inspire">
-        
         <v-navigation-drawer v-model="drawer" app clipped>
             <v-list nav dense>
                 <v-list-item link>
@@ -24,15 +22,14 @@
         </v-navigation-drawer>
 
         <v-app-bar app clipped-left>
-            <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+            <v-app-bar-nav-icon @click.stop="drawer = !drawer" >
+                <i class="material-icons">reorder</i>
+            </v-app-bar-nav-icon>
             <v-toolbar-title>Gujarat covid tracker</v-toolbar-title>
         </v-app-bar>
 
         <v-content>
-            
-                <Map></Map>
-
-
+            <Map></Map>
         </v-content>
 
         <v-footer app>

@@ -7,6 +7,7 @@
 require("./bootstrap");
 
 window.Vue = require("vue");
+import "material-design-icons-iconfont/dist/material-design-icons.css";
 import VueGeolocation from "vue-browser-geolocation";
 Vue.use(VueGeolocation);
 import GmapCustomMarker from "vue2-gmap-custom-marker";
@@ -21,9 +22,9 @@ Vue.use(VueGoogleMaps, {
 });
 
 import Vuetify from "../plugins/vuetify";
-import VueFuse from 'vue-fuse'
- 
-Vue.use(VueFuse)
+import VueFuse from "vue-fuse";
+
+Vue.use(VueFuse);
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -43,7 +44,6 @@ Vue.component("Map", require("./components/Map.vue").default);
 
 Vue.component("cluster", GmapCluster);
 Vue.component("gmap-custom-marker", GmapCustomMarker);
-
 
 const app = new Vue({
     vuetify: Vuetify,

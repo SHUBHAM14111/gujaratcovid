@@ -27,6 +27,7 @@
         "animate.css": "^3.7.2",
         "mapbox-gl": "^1.9.1",
         "marker-clusterer-plus": "^2.1.4",
+        "material-design-icons-iconfont": "^5.0.1",
         "vue-browser-geolocation": "^1.8.0",
         "vue-fuse": "^2.2.1",
         "vue-loader": "^15.9.1",
