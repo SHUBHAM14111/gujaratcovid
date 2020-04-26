@@ -3,6 +3,7 @@
     <v-app id="inspire">
         
         <v-navigation-drawer v-model="drawer" app clipped>
+
             <v-list nav dense>
                 <v-list-item link>
                     <v-list-item-content>

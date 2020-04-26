@@ -1959,6 +1959,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     source: String
@@ -97477,7 +97478,7 @@ module.exports = function(module) {
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
   \*****************************/
-/*! no exports provided */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -97534,6 +97535,11 @@ var app = new Vue({
   vuetify: _plugins_vuetify__WEBPACK_IMPORTED_MODULE_4__["default"],
   el: "#app"
 });
+/* harmony default export */ __webpack_exports__["default"] = (new _plugins_vuetify__WEBPACK_IMPORTED_MODULE_4__["default"]({
+  icons: {
+    iconfont: 'mdiSvg'
+  }
+}));
 
 /***/ }),
 

@@ -49,3 +49,8 @@ const app = new Vue({
     vuetify: Vuetify,
     el: "#app"
 });
+export default new Vuetify({
+    icons: {
+      iconfont: 'mdiSvg', 
+    },
+  });
