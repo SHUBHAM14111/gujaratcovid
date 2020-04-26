@@ -1951,6 +1951,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     source: String
@@ -1961,7 +1969,7 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   created: function created() {
-    this.$vuetify.theme.dark = true;
+    this.$vuetify.theme.dark = false;
   }
 });
 
@@ -1976,6 +1984,22 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2065,7 +2089,13 @@ __webpack_require__.r(__webpack_exports__);
       },
       markers: [],
       districts: [],
-      search: null
+      search: null,
+      selectedcoords: {
+        lat: 22.2587,
+        lng: 71.1924
+      },
+      loading: false,
+      loading2: false
     };
   },
   computed: {
@@ -2085,18 +2115,30 @@ __webpack_require__.r(__webpack_exports__);
     getlocation: function getlocation() {
       var _this2 = this;
 
-      fetch("api/patients").then(function (res) {
+      this.loading = true;
+      this.loading2 = true;
+      fetch('api/patients').then(function (res) {
         return res.json();
       }).then(function (res) {
         //console.log(res.data);
         _this2.markers = res.data;
+      })["finally"](function () {
+        return _this2.loading = false;
       });
       fetch('api/districts').then(function (res) {
         return res.json();
       }).then(function (res) {
         //console.log(res.data);
         _this2.districts = res.data;
+      })["finally"](function () {
+        return _this2.loading2 = false;
       });
+    },
+    selectsearch: function selectsearch(lat, lng, val) {
+      this.selectedcoords.lat = lat;
+      this.selectedcoords.lng = lng;
+      this.coordinates = this.selectedcoords;
+      this.val = val;
     }
   },
   created: function created() {
@@ -2104,14 +2146,8 @@ __webpack_require__.r(__webpack_exports__);
 
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function (position) {
-<<<<<<< HEAD
-        _this2.uc.lat = position.coords.latitude;
-        _this2.uc.lng = position.coords.longitude;
-=======
         _this3.uc.lat = position.coords.latitude;
         _this3.uc.lng = position.coords.longitude;
-        console.log(uc);
->>>>>>> origin/master
       }, function () {
         alert("it fails");
       });
@@ -2120,6 +2156,7 @@ __webpack_require__.r(__webpack_exports__);
     }
 
     this.getlocation();
+    this.selectsearch();
   }
 });
 
@@ -40675,16 +40712,8 @@ var render = function() {
                 "v-list-item",
                 { attrs: { link: "" } },
                 [
-                  _c(
-                    "v-list-item-action",
-                    [_c("v-icon", [_vm._v("mdi-view-dashboard")])],
-                    1
-                  ),
-                  _vm._v(" "),
                   _c("v-list-item-content", [
-                    _vm._v(
-                      "\n                    Addon Solutions\n                "
-                    )
+                    _vm._v("\n                    Overview\n                ")
                   ])
                 ],
                 1
@@ -40695,14 +40724,23 @@ var render = function() {
                 { attrs: { link: "" } },
                 [
                   _c(
-                    "v-list-item-action",
-                    [_c("v-icon", [_vm._v("mdi-settings")])],
+                    "v-list-item-content",
+                    [_c("v-list-item-title", [_vm._v("Prevention")])],
                     1
-                  ),
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-list-item",
+                { attrs: { link: "" } },
+                [
+                  _c("v-icon", [_vm._v("fas fa-share")]),
                   _vm._v(" "),
                   _c(
                     "v-list-item-content",
-                    [_c("v-list-item-title", [_vm._v("Settings")])],
+                    [_c("v-list-item-title", [_vm._v("Share")])],
                     1
                   )
                 ],
@@ -40710,7 +40748,18 @@ var render = function() {
               )
             ],
             1
-          )
+          ),
+          _vm._v(" "),
+          _c("v-switch", {
+            attrs: { "hide-details": "", inset: "", label: "" },
+            model: {
+              value: _vm.$vuetify.theme.dark,
+              callback: function($$v) {
+                _vm.$set(_vm.$vuetify.theme, "dark", $$v)
+              },
+              expression: "$vuetify.theme.dark"
+            }
+          })
         ],
         1
       ),
@@ -40767,16 +40816,23 @@ var render = function() {
   return _c(
     "div",
     [
+      _vm.loading
+        ? _c(
+            "div",
+            [
+              _c("v-progress-linear", {
+                attrs: { indeterminate: "", color: "cyan" }
+              })
+            ],
+            1
+          )
+        : _vm._e(),
+      _vm._v(" "),
       _c(
         "GmapMap",
         {
-<<<<<<< HEAD
-          staticStyle: { width: "1200px", height: "101vh" },
-          attrs: { center: _vm.coordinates, zoom: 7.4 }
-=======
           staticStyle: { width: "auto", height: "101vh" },
           attrs: { center: _vm.coordinates, zoom: _vm.val }
->>>>>>> origin/master
         },
         [
           _c("gmap-custom-marker", { attrs: { marker: _vm.uc } }, [
@@ -40806,8 +40862,6 @@ var render = function() {
             }),
             1
           )
-<<<<<<< HEAD
-=======
         ],
         1
       ),
@@ -40825,10 +40879,35 @@ var render = function() {
               },
               expression: "search"
             }
-          })
+          }),
+          _vm._v(" "),
+          _c(
+            "v-btn",
+            {
+              attrs: { small: "", color: "primary" },
+              on: {
+                click: function($event) {
+                  return _vm.selectsearch(22.2587, 71.1924, 7)
+                }
+              }
+            },
+            [_vm._v("Click to see Gujarat")]
+          )
         ],
         1
       ),
+      _vm._v(" "),
+      _vm.loading2
+        ? _c(
+            "div",
+            [
+              _c("v-progress-linear", {
+                attrs: { indeterminate: "", color: "yellow" }
+              })
+            ],
+            1
+          )
+        : _vm._e(),
       _vm._v(" "),
       _c(
         "v-app",
@@ -40854,7 +40933,13 @@ var render = function() {
                           _vm._v("Cured")
                         ]),
                         _vm._v(" "),
-                        _c("th", { staticClass: "text-left" }, [_vm._v("Died")])
+                        _c("th", { staticClass: "text-left" }, [
+                          _vm._v("Died")
+                        ]),
+                        _vm._v(" "),
+                        _c("th", { staticClass: "text-left" }, [
+                          _vm._v("Click to zoom")
+                        ])
                       ])
                     ]),
                     _vm._v(" "),
@@ -40868,7 +40953,30 @@ var render = function() {
                           _vm._v(" "),
                           _c("td", [_vm._v(_vm._s(district.cured))]),
                           _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(district.died))])
+                          _c("td", [_vm._v(_vm._s(district.died))]),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            [
+                              _c(
+                                "v-btn",
+                                {
+                                  attrs: { small: "", color: "primary" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.selectsearch(
+                                        district.lat,
+                                        district.lng,
+                                        10
+                                      )
+                                    }
+                                  }
+                                },
+                                [_vm._v("Location")]
+                              )
+                            ],
+                            1
+                          )
                         ])
                       }),
                       0
@@ -40879,7 +40987,6 @@ var render = function() {
               }
             ])
           })
->>>>>>> origin/master
         ],
         1
       )
@@ -97383,11 +97490,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue2_google_maps_dist_components_cluster__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue2-google-maps/dist/components/cluster */ "./node_modules/vue2-google-maps/dist/components/cluster.js");
 /* harmony import */ var vue2_google_maps_dist_components_cluster__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vue2_google_maps_dist_components_cluster__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _plugins_vuetify__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../plugins/vuetify */ "./resources/plugins/vuetify.js");
-<<<<<<< HEAD
-=======
 /* harmony import */ var vue_fuse__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue-fuse */ "./node_modules/vue-fuse/dist/vue-fuse.umd.min.js");
 /* harmony import */ var vue_fuse__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(vue_fuse__WEBPACK_IMPORTED_MODULE_5__);
->>>>>>> origin/master
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -97401,10 +97505,6 @@ Vue.use(vue_browser_geolocation__WEBPACK_IMPORTED_MODULE_0___default.a);
 
 Vue.use(vue2_gmap_custom_marker__WEBPACK_IMPORTED_MODULE_1__["default"]);
 
-<<<<<<< HEAD
- // Note: the name "cluster" below is the one to use in the template tags
-=======
->>>>>>> origin/master
 
 Vue.use(vue2_google_maps__WEBPACK_IMPORTED_MODULE_2__, {
   load: {
@@ -97556,15 +97656,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!*****************************************!*\
   !*** ./resources/js/components/Map.vue ***!
   \*****************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Map_vue_vue_type_template_id_479a2f41_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Map.vue?vue&type=template&id=479a2f41&scoped=true& */ "./resources/js/components/Map.vue?vue&type=template&id=479a2f41&scoped=true&");
 /* harmony import */ var _Map_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Map.vue?vue&type=script&lang=js& */ "./resources/js/components/Map.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _Map_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _Map_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -97594,7 +97693,7 @@ component.options.__file = "resources/js/components/Map.vue"
 /*!******************************************************************!*\
   !*** ./resources/js/components/Map.vue?vue&type=script&lang=js& ***!
   \******************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -97664,8 +97763,8 @@ var opts = {};
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\covid19tracker\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\covid19tracker\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\gujaratcovid\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\gujaratcovid\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
