@@ -3,22 +3,30 @@
         <v-navigation-drawer v-model="drawer" app clipped>
             <v-list nav dense>
                 <v-list-item link>
-                    <v-list-item-action>
-                        <v-icon>mdi-view-dashboard</v-icon>
-                    </v-list-item-action>
                     <v-list-item-content>
-                        Addon Solutions
+                        Overview
                     </v-list-item-content>
                 </v-list-item>
                 <v-list-item link>
-                    <v-list-item-action>
-                        <v-icon>mdi-settings</v-icon>
-                    </v-list-item-action>
                     <v-list-item-content>
-                        <v-list-item-title>Settings</v-list-item-title>
+                        <v-list-item-title>Prevention</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+               
+                <v-list-item link>
+                          <v-icon>fas fa-share</v-icon>
+
+                    <v-list-item-content>
+                        <v-list-item-title>Share</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
             </v-list>
+            <v-switch
+                             v-model="$vuetify.theme.dark"
+                                hide-details
+                                inset
+                            label=""
+                            ></v-switch>
         </v-navigation-drawer>
 
         <v-app-bar app clipped-left>
@@ -49,7 +57,7 @@ export default {
     }),
 
     created() {
-        this.$vuetify.theme.dark = true;
+        this.$vuetify.theme.dark = false;
     }
 };
 </script>
