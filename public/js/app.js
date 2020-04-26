@@ -1951,6 +1951,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     source: String
@@ -1961,7 +1969,7 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   created: function created() {
-    this.$vuetify.theme.dark = true;
+    this.$vuetify.theme.dark = false;
   }
 });
 
@@ -1976,6 +1984,31 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2056,7 +2089,13 @@ __webpack_require__.r(__webpack_exports__);
       },
       markers: [],
       districts: [],
-      search: null
+      search: null,
+      selectedcoords: {
+        lat: 22.2587,
+        lng: 71.1924
+      },
+      loading: false,
+      loading2: false
     };
   },
   computed: {
@@ -2076,18 +2115,30 @@ __webpack_require__.r(__webpack_exports__);
     getlocation: function getlocation() {
       var _this2 = this;
 
+      this.loading = true;
+      this.loading2 = true;
       fetch('api/patients').then(function (res) {
         return res.json();
       }).then(function (res) {
         //console.log(res.data);
         _this2.markers = res.data;
+      })["finally"](function () {
+        return _this2.loading = false;
       });
       fetch('api/districts').then(function (res) {
         return res.json();
       }).then(function (res) {
         //console.log(res.data);
         _this2.districts = res.data;
+      })["finally"](function () {
+        return _this2.loading2 = false;
       });
+    },
+    selectsearch: function selectsearch(lat, lng, val) {
+      this.selectedcoords.lat = lat;
+      this.selectedcoords.lng = lng;
+      this.coordinates = this.selectedcoords;
+      this.val = val;
     }
   },
   created: function created() {
@@ -2097,7 +2148,6 @@ __webpack_require__.r(__webpack_exports__);
       navigator.geolocation.getCurrentPosition(function (position) {
         _this3.uc.lat = position.coords.latitude;
         _this3.uc.lng = position.coords.longitude;
-        console.log(uc);
       }, function () {
         alert("it fails");
       });
@@ -2106,6 +2156,7 @@ __webpack_require__.r(__webpack_exports__);
     }
 
     this.getlocation();
+    this.selectsearch();
   }
 });
 
@@ -40661,16 +40712,8 @@ var render = function() {
                 "v-list-item",
                 { attrs: { link: "" } },
                 [
-                  _c(
-                    "v-list-item-action",
-                    [_c("v-icon", [_vm._v("mdi-view-dashboard")])],
-                    1
-                  ),
-                  _vm._v(" "),
                   _c("v-list-item-content", [
-                    _vm._v(
-                      "\n                    Addon Solutions\n                "
-                    )
+                    _vm._v("\n                    Overview\n                ")
                   ])
                 ],
                 1
@@ -40681,14 +40724,23 @@ var render = function() {
                 { attrs: { link: "" } },
                 [
                   _c(
-                    "v-list-item-action",
-                    [_c("v-icon", [_vm._v("mdi-settings")])],
+                    "v-list-item-content",
+                    [_c("v-list-item-title", [_vm._v("Prevention")])],
                     1
-                  ),
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-list-item",
+                { attrs: { link: "" } },
+                [
+                  _c("v-icon", [_vm._v("fas fa-share")]),
                   _vm._v(" "),
                   _c(
                     "v-list-item-content",
-                    [_c("v-list-item-title", [_vm._v("Settings")])],
+                    [_c("v-list-item-title", [_vm._v("Share")])],
                     1
                   )
                 ],
@@ -40696,7 +40748,18 @@ var render = function() {
               )
             ],
             1
-          )
+          ),
+          _vm._v(" "),
+          _c("v-switch", {
+            attrs: { "hide-details": "", inset: "", label: "" },
+            model: {
+              value: _vm.$vuetify.theme.dark,
+              callback: function($$v) {
+                _vm.$set(_vm.$vuetify.theme, "dark", $$v)
+              },
+              expression: "$vuetify.theme.dark"
+            }
+          })
         ],
         1
       ),
@@ -40753,6 +40816,18 @@ var render = function() {
   return _c(
     "div",
     [
+      _vm.loading
+        ? _c(
+            "div",
+            [
+              _c("v-progress-linear", {
+                attrs: { indeterminate: "", color: "cyan" }
+              })
+            ],
+            1
+          )
+        : _vm._e(),
+      _vm._v(" "),
       _c(
         "GmapMap",
         {
@@ -40804,10 +40879,35 @@ var render = function() {
               },
               expression: "search"
             }
-          })
+          }),
+          _vm._v(" "),
+          _c(
+            "v-btn",
+            {
+              attrs: { small: "", color: "primary" },
+              on: {
+                click: function($event) {
+                  return _vm.selectsearch(22.2587, 71.1924, 7)
+                }
+              }
+            },
+            [_vm._v("Click to see Gujarat")]
+          )
         ],
         1
       ),
+      _vm._v(" "),
+      _vm.loading2
+        ? _c(
+            "div",
+            [
+              _c("v-progress-linear", {
+                attrs: { indeterminate: "", color: "yellow" }
+              })
+            ],
+            1
+          )
+        : _vm._e(),
       _vm._v(" "),
       _c(
         "v-app",
@@ -40833,7 +40933,13 @@ var render = function() {
                           _vm._v("Cured")
                         ]),
                         _vm._v(" "),
-                        _c("th", { staticClass: "text-left" }, [_vm._v("Died")])
+                        _c("th", { staticClass: "text-left" }, [
+                          _vm._v("Died")
+                        ]),
+                        _vm._v(" "),
+                        _c("th", { staticClass: "text-left" }, [
+                          _vm._v("Click to zoom")
+                        ])
                       ])
                     ]),
                     _vm._v(" "),
@@ -40847,7 +40953,30 @@ var render = function() {
                           _vm._v(" "),
                           _c("td", [_vm._v(_vm._s(district.cured))]),
                           _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(district.died))])
+                          _c("td", [_vm._v(_vm._s(district.died))]),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            [
+                              _c(
+                                "v-btn",
+                                {
+                                  attrs: { small: "", color: "primary" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.selectsearch(
+                                        district.lat,
+                                        district.lng,
+                                        10
+                                      )
+                                    }
+                                  }
+                                },
+                                [_vm._v("Location")]
+                              )
+                            ],
+                            1
+                          )
                         ])
                       }),
                       0
@@ -97526,15 +97655,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!*****************************************!*\
   !*** ./resources/js/components/Map.vue ***!
   \*****************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Map_vue_vue_type_template_id_479a2f41_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Map.vue?vue&type=template&id=479a2f41&scoped=true& */ "./resources/js/components/Map.vue?vue&type=template&id=479a2f41&scoped=true&");
 /* harmony import */ var _Map_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Map.vue?vue&type=script&lang=js& */ "./resources/js/components/Map.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _Map_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _Map_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -97564,7 +97692,7 @@ component.options.__file = "resources/js/components/Map.vue"
 /*!******************************************************************!*\
   !*** ./resources/js/components/Map.vue?vue&type=script&lang=js& ***!
   \******************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
