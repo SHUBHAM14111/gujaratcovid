@@ -16,8 +16,8 @@ class CreateDistrictsTable extends Migration
         Schema::create('districts', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->decimal('lat', 10, 7);
-            $table->decimal('lng', 10, 7);
+            $table->double('lat', 10, 7);
+            $table->double('lng', 10, 7);
             $table->integer('infected');
             $table->integer('cured');
             $table->integer('died');

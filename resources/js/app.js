@@ -20,7 +20,9 @@ Vue.use(VueGoogleMaps, {
         libraries: "places" // This is required if you use the Autocomplete plugin
     }
 });
-
+import "chart.js";
+import "hchs-vue-charts";
+Vue.use(window.VueCharts);
 import Vuetify from "../plugins/vuetify";
 import VueFuse from "vue-fuse";
 
@@ -51,6 +53,6 @@ const app = new Vue({
 });
 export default new Vuetify({
     icons: {
-      iconfont: 'mdiSvg',
-    },
-  });
+        iconfont: "mdiSvg"
+    }
+});
