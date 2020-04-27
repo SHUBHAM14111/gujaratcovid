@@ -2082,6 +2082,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -40840,7 +40846,7 @@ var render = function() {
             1
           )
         : _vm._e(),
-      _vm._v(" "),
+      _vm._v("\n<<<<<<< HEAD\n        "),
       _c(
         "v-alert",
         { attrs: { prominent: "", type: "info", dismissible: "" } },
@@ -40864,7 +40870,7 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._v("\n                continue\n              ")]
+                [_vm._v("\n                  continue\n                ")]
               )
             ],
             1
@@ -40872,7 +40878,31 @@ var render = function() {
         ],
         1
       ),
-      _vm._v(" "),
+      _vm._v("\n=======\n        "),
+      _c(
+        "p",
+        { staticClass: "text-left" },
+        [
+          _c(
+            "v-btn",
+            {
+              on: {
+                click: function($event) {
+                  return _vm.selectsearch(22.2587, 71.1924, 7)
+                }
+              }
+            },
+            [
+              _vm._v(
+                "\n                  Activate gujarat map\n                "
+              )
+            ]
+          ),
+          _vm._v("Scroll bellow to see statistics")
+        ],
+        1
+      ),
+      _vm._v("\n>>>>>>> e8f104b3511a4534122b630ab588537acbca0160\n        "),
       _c(
         "GmapMap",
         {
