@@ -3,6 +3,24 @@
         <div v-if="loading">
             <v-progress-linear indeterminate color="cyan"></v-progress-linear>
         </div>
+<<<<<<< HEAD
+        <v-alert
+        prominent
+        type="info"
+        dismissible
+      >
+       <v-col class="grow" draggable>Maps has been loaded and your current location is trace press</v-col>
+          <v-col class="shrink">
+            <v-btn  v-on:click="selectsearch(22.2587,71.1924,7)">
+                  continue
+                </v-btn>
+          </v-col>
+        </v-alert>
+=======
+        <p class="text-left"><v-btn v-on:click="selectsearch(22.2587,71.1924,7)">
+                  Activate gujarat map
+                </v-btn>Scroll bellow to see statistics</p>
+>>>>>>> e8f104b3511a4534122b630ab588537acbca0160
         <GmapMap
             :center="coordinates"
             :zoom="val"
