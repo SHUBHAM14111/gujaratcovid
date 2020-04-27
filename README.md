@@ -23,4 +23,4 @@ GujaratCovid is accessible, neat, and provides clear structure of the case and p
 
 ## License
 
-The GujaratCovid software codebase licensed under the [MIT license](https://opensource.org/licenses/MIT).
+The GujaratCovid software codebase licensed under the addon solutions

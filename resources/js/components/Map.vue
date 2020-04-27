@@ -7,6 +7,9 @@
         color="cyan"
       ></v-progress-linear>
         </div>
+        <p class="text-left"><v-btn v-on:click="selectsearch(22.2587,71.1924,7)">
+                  Activate gujarat map
+                </v-btn>Scroll bellow to see statistics</p>
         <GmapMap
 
             :center="coordinates"
