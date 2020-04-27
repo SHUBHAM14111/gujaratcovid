@@ -2074,6 +2074,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2140,6 +2152,12 @@ __webpack_require__.r(__webpack_exports__);
       this.selectedcoords.lng = lng;
       this.coordinates = this.selectedcoords;
       this.val = val;
+    },
+    "goto": function goto(refName) {
+      var element = this.$refs[refName];
+      console.log(element);
+      var top = element.offsetTop;
+      window.scrollTo(0, top);
     }
   },
   created: function created() {
@@ -40830,6 +40848,26 @@ var render = function() {
         : _vm._e(),
       _vm._v(" "),
       _c(
+        "p",
+        { staticClass: "text-left" },
+        [
+          _c(
+            "v-btn",
+            {
+              on: {
+                click: function($event) {
+                  return _vm.selectsearch(22.2587, 71.1924, 7)
+                }
+              }
+            },
+            [_vm._v("\n                Activate gujarat map\n              ")]
+          ),
+          _vm._v("Scroll bellow to see statistics")
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
         "GmapMap",
         {
           staticStyle: { width: "auto", height: "101vh" },
@@ -40912,7 +40950,7 @@ var render = function() {
       _vm._v(" "),
       _c(
         "v-app",
-        { attrs: { id: "inspire" } },
+        { ref: "statistics", attrs: { id: "inspire" } },
         [
           _c("v-simple-table", {
             scopedSlots: _vm._u([

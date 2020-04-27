@@ -7,6 +7,11 @@
         color="cyan"
       ></v-progress-linear>
         </div>
+                <p class="text-left"><v-btn v-on:click="selectsearch(22.2587,71.1924,7)">
+                  Activate gujarat map
+                </v-btn>Scroll bellow to see statistics</p>
+
+
         <GmapMap
 
             :center="coordinates"
@@ -50,7 +55,10 @@
         color="yellow"
             ></v-progress-linear>
         </div>
-    <v-app id="inspire">
+    <v-app id="inspire"
+    
+        ref="statistics"
+    >
         
     <v-simple-table>
       <template v-slot:default>
@@ -81,7 +89,11 @@
         </tbody>
         
       </template>
+
+      
     </v-simple-table>
+    
+
   </v-app>
     </div>
     
@@ -154,7 +166,14 @@ export default {
 
                this.coordinates = this.selectedcoords;
                this.val = val;
-           }
+           },
+           goto(refName) {
+    	        var element = this.$refs[refName];
+                console.log(element);
+                var top = element.offsetTop;
+      
+                 window.scrollTo(0, top);
+            }
         },
        
     created() {
@@ -174,6 +193,7 @@ export default {
         }
         this.getlocation();
         this.selectsearch();
+
     }
 };
 </script>
