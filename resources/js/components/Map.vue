@@ -7,6 +7,18 @@
         color="cyan"
       ></v-progress-linear>
         </div>
+        <v-alert
+        prominent
+        type="info"
+        dismissible
+      >
+       <v-col class="grow" draggable>Maps has been loaded and your current location is trace press</v-col>
+          <v-col class="shrink">
+            <v-btn  v-on:click="selectsearch(22.2587,71.1924,7)">
+                  continue
+                </v-btn>
+          </v-col>
+        </v-alert>
         <GmapMap
 
             :center="coordinates"
