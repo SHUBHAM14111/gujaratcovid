@@ -1960,6 +1960,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     source: String
@@ -1985,6 +1986,21 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2152,12 +2168,6 @@ __webpack_require__.r(__webpack_exports__);
       this.selectedcoords.lng = lng;
       this.coordinates = this.selectedcoords;
       this.val = val;
-    },
-    "goto": function goto(refName) {
-      var element = this.$refs[refName];
-      console.log(element);
-      var top = element.offsetTop;
-      window.scrollTo(0, top);
     }
   },
   created: function created() {
@@ -40764,21 +40774,21 @@ var render = function() {
                   )
                 ],
                 1
-              )
+              ),
+              _vm._v(" "),
+              _c("v-switch", {
+                attrs: { "hide-details": "", inset: "", label: "" },
+                model: {
+                  value: _vm.$vuetify.theme.dark,
+                  callback: function($$v) {
+                    _vm.$set(_vm.$vuetify.theme, "dark", $$v)
+                  },
+                  expression: "$vuetify.theme.dark"
+                }
+              })
             ],
             1
-          ),
-          _vm._v(" "),
-          _c("v-switch", {
-            attrs: { "hide-details": "", inset: "", label: "" },
-            model: {
-              value: _vm.$vuetify.theme.dark,
-              callback: function($$v) {
-                _vm.$set(_vm.$vuetify.theme, "dark", $$v)
-              },
-              expression: "$vuetify.theme.dark"
-            }
-          })
+          )
         ],
         1
       ),
@@ -40848,21 +40858,33 @@ var render = function() {
         : _vm._e(),
       _vm._v(" "),
       _c(
-        "p",
-        { staticClass: "text-left" },
+        "v-alert",
+        { attrs: { prominent: "", type: "info", dismissible: "" } },
         [
+          _c("v-col", { staticClass: "grow", attrs: { draggable: "" } }, [
+            _vm._v(
+              "Maps has been loaded and your current location is trace press"
+            )
+          ]),
+          _vm._v(" "),
           _c(
-            "v-btn",
-            {
-              on: {
-                click: function($event) {
-                  return _vm.selectsearch(22.2587, 71.1924, 7)
-                }
-              }
-            },
-            [_vm._v("\n                Activate gujarat map\n              ")]
-          ),
-          _vm._v("Scroll bellow to see statistics")
+            "v-col",
+            { staticClass: "shrink" },
+            [
+              _c(
+                "v-btn",
+                {
+                  on: {
+                    click: function($event) {
+                      return _vm.selectsearch(22.2587, 71.1924, 7)
+                    }
+                  }
+                },
+                [_vm._v("\n                continue\n              ")]
+              )
+            ],
+            1
+          )
         ],
         1
       ),
@@ -40952,6 +40974,12 @@ var render = function() {
         "v-app",
         { ref: "statistics", attrs: { id: "inspire" } },
         [
+          _c("v-alert", { attrs: { type: "info", dismissible: "" } }, [
+            _vm._v(
+              "\n      You are now on district statistics and locate button will zoom district on maps for clear view\n    "
+            )
+          ]),
+          _vm._v(" "),
           _c("v-simple-table", {
             scopedSlots: _vm._u([
               {

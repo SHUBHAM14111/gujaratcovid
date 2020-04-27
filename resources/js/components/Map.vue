@@ -5,15 +5,27 @@
         <v-progress-linear
         indeterminate
         color="cyan"
-      ></v-progress-linear>
-        </div>
-                <p class="text-left"><v-btn v-on:click="selectsearch(22.2587,71.1924,7)">
-                  Activate gujarat map
-                </v-btn>Scroll bellow to see statistics</p>
+      >
+      
+      </v-progress-linear>
+      </div>
+     
+     
 
-
+        <v-alert
+        prominent
+        type="info"
+        dismissible
+      >
+       <v-col class="grow" draggable>Maps has been loaded and your current location is trace press</v-col>
+          <v-col class="shrink">
+            <v-btn  v-on:click="selectsearch(22.2587,71.1924,7)">
+                  continue
+                </v-btn>
+          </v-col>
+        </v-alert>
         <GmapMap
-
+            
             :center="coordinates"
             :zoom="val"
             style="width: auto; height: 101vh"
@@ -59,8 +71,11 @@
     
         ref="statistics"
     >
-        
+        <v-alert type="info" dismissible>
+        You are now on district statistics and locate button will zoom district on maps for clear view
+      </v-alert>
     <v-simple-table>
+        
       <template v-slot:default>
         <thead>
           <tr>
@@ -167,13 +182,7 @@ export default {
                this.coordinates = this.selectedcoords;
                this.val = val;
            },
-           goto(refName) {
-    	        var element = this.$refs[refName];
-                console.log(element);
-                var top = element.offsetTop;
-      
-                 window.scrollTo(0, top);
-            }
+           
         },
        
     created() {

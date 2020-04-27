@@ -23,13 +23,14 @@
                         <v-list-item-title>Share</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
-            </v-list>
-            <v-switch
+                  <v-switch
                              v-model="$vuetify.theme.dark"
                                 hide-details
                                 inset
                             label=""
                             ></v-switch>
+            </v-list>
+          
         </v-navigation-drawer>
 
         <v-app-bar app clipped-left>
