@@ -21,11 +21,7 @@
       >
        <v-col class="grow" draggable>Maps has been loaded and your current location is trace press</v-col>
           <v-col class="shrink">
-            <v-btn  color="primary" v-on:click="selectsearch(22.2587,71.1924,7)">
-                  continue
-                <v-icon dark right>mdi-checkbox-marked-circle</v-icon>
-
-                </v-btn>
+            
           </v-col>
         </v-alert>
         <GmapMap
@@ -63,7 +59,7 @@
               v-model="search"
             >
             </v-text-field>
-            <v-btn small color="primary" v-on:click="selectsearch(22.2587,71.1924,7)">Click to see Gujarat</v-btn>
+            <v-btn small color="primary" @click="coordinates.lat=22.2587;  coordinates.lng = 71.1924 ; val=7;">Click to see Gujarat</v-btn>
 
           </v-col>
           <div v-if="loading2">
@@ -105,7 +101,7 @@
             <td>{{ district.died }}</td>
 
             <td>
-            <v-btn small color="primary" v-on:click="selectsearch(district.lat,district.lng,10)">Location</v-btn>
+            <v-btn small color="primary" @click="coordinates.lat=district.lat;  coordinates.lng = district.lng ; val=10;">Location</v-btn>
 
               </td>
           </tr>
@@ -173,13 +169,7 @@ export default {
                      }).finally(()=>(this.loading2 = false));
             },
             
-           selectsearch(lat,lng,val){
-               
-               this.selectedcoords.lat = lat;
-               this.selectedcoords.lng = lng;
-               this.coordinates = this.selectedcoords;
-               this.val = val;
-           },
+           
            
         },
        
@@ -199,7 +189,6 @@ export default {
             alert("Browser not supported");
         }
         this.getlocation();
-        this.selectsearch();
     }
 };
 </script>

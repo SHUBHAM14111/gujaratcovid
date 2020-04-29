@@ -2,38 +2,50 @@
 
     <v-app id="inspire">
         
-        <v-navigation-drawer v-model="drawer" app clipped>
-
+         <v-navigation-drawer v-model="drawer" app clipped>
             <v-list nav dense>
-                <v-list-item link>
-                    <v-list-item-content>
-                    <router-link :to="{ name: 'home' }">Home</router-link> 
-                    </v-list-item-content>
-                </v-list-item>
-                <v-list-item link>
-                    <v-list-item-content>
-                    <router-link :to="{ name: 'district' }">District</router-link> 
-                    </v-list-item-content>
-                </v-list-item>
-               
-                <v-list-item link>
+                <router-link
+                    :to="{ name: 'home' }"
+                    style="text-decoration: none; color: inherit;"
+                    ><v-list-item link>
+                        <v-list-item-action>
+                            <v-icon>mdi-home</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            Home
+                        </v-list-item-content>
+                    </v-list-item></router-link
+                ><router-link
+                    :to="{ name: 'district' }"
+                    style="text-decoration: none; color: inherit;"
+                >
+                    <v-list-item link>
+                        <v-list-item-action>
+                            <v-icon>mdi-view-dashboard</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title>District</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item></router-link
+                >
 
+                <v-list-item link>
                     <v-list-item-content>
-                        <v-list-item-title>      <v-icon>mdi-share</v-icon>
-Share</v-list-item-title>
+                        <v-list-item-title>
+                            <v-icon>mdi-share</v-icon> Share</v-list-item-title
+                        >
                     </v-list-item-content>
                 </v-list-item>
-             <v-list-item >
-                  <v-switch
-                             v-model="$vuetify.theme.dark"
-                                hide-details
-                                inset
-                                small
-                            label="Theme dark"
-                            ></v-switch>
-             </v-list-item>
+                <v-list-item>
+                    <v-switch
+                        v-model="$vuetify.theme.dark"
+                        hide-details
+                        inset
+                        small
+                        label="Theme dark"
+                    ></v-switch>
+                </v-list-item>
             </v-list>
-          
         </v-navigation-drawer>
 
         <v-app-bar app clipped-left>
@@ -42,9 +54,11 @@ Share</v-list-item-title>
         </v-app-bar>
 
         <v-content>
-            
+            <transition
+        name="slither"
+        >
                 <router-view></router-view>
-
+            </transition>
         </v-content>
 
         <v-footer app>
@@ -68,3 +82,18 @@ export default {
     }
 };
 </script>
+
+
+<style>
+.slither-enter-active, .slither-leave-active {
+  transition: transform 0.8s;
+}
+
+.slither-enter, .slither-leave-to {
+  transform: translateX(-100%);
+}
+
+.slither-enter-to, .slither-leave {
+  transform: translateX(0);
+}
+</style>
