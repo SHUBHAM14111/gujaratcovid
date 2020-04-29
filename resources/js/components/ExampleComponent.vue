@@ -2,42 +2,57 @@
     <v-app id="inspire">
         <v-navigation-drawer v-model="drawer" app clipped>
             <v-list nav dense>
-                <v-list-item link>
-                    <v-list-item-content>
-                        Overview
-                    </v-list-item-content>
-                </v-list-item>
-                <v-list-item link>
-                    <v-list-item-content>
-                        <v-list-item-title>Prevention</v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
-               
-                <v-list-item link>
-                          <v-icon>fas fa-share</v-icon>
+                <router-link
+                    :to="{ name: 'home' }"
+                    style="text-decoration: none; color: inherit;"
+                    ><v-list-item link>
+                        <v-list-item-action>
+                            <v-icon>mdi-home</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            Home
+                        </v-list-item-content>
+                    </v-list-item></router-link
+                ><router-link
+                    :to="{ name: 'district' }"
+                    style="text-decoration: none; color: inherit;"
+                >
+                    <v-list-item link>
+                        <v-list-item-action>
+                            <v-icon>mdi-view-dashboard</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title>District</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item></router-link
+                >
 
+                <v-list-item link>
                     <v-list-item-content>
-                        <v-list-item-title>Share</v-list-item-title>
+                        <v-list-item-title>
+                            <v-icon>mdi-share</v-icon> Share</v-list-item-title
+                        >
                     </v-list-item-content>
+                </v-list-item>
+                <v-list-item>
+                    <v-switch
+                        v-model="$vuetify.theme.dark"
+                        hide-details
+                        inset
+                        small
+                        label="Theme dark"
+                    ></v-switch>
                 </v-list-item>
             </v-list>
-            <v-switch
-                             v-model="$vuetify.theme.dark"
-                                hide-details
-                                inset
-                            label=""
-                            ></v-switch>
         </v-navigation-drawer>
 
         <v-app-bar app clipped-left>
-            <v-app-bar-nav-icon @click.stop="drawer = !drawer" >
-                <i class="material-icons">reorder</i>
-            </v-app-bar-nav-icon>
+            <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
             <v-toolbar-title>Gujarat covid tracker</v-toolbar-title>
         </v-app-bar>
 
         <v-content>
-            <Map></Map>
+            <router-view></router-view>
         </v-content>
 
         <v-footer app>
@@ -61,3 +76,10 @@ export default {
     }
 };
 </script>
+
+<style lang="css" scoped>
+a {
+    text-decoration: none;
+    color: inherit;
+}
+</style>

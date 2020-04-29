@@ -7,24 +7,26 @@
 require("./bootstrap");
 
 window.Vue = require("vue");
-import "material-design-icons-iconfont/dist/material-design-icons.css";
 import VueGeolocation from "vue-browser-geolocation";
 Vue.use(VueGeolocation);
 import GmapCustomMarker from "vue2-gmap-custom-marker";
 Vue.use(GmapCustomMarker);
 import * as VueGoogleMaps from "vue2-google-maps";
 import GmapCluster from "vue2-google-maps/dist/components/cluster";
+import VueRouter from "vue-router";
+
+Vue.use(VueRouter);
 Vue.use(VueGoogleMaps, {
     load: {
         key: "AIzaSyCP9uBD7K6ncLh6XeowYEgrRCesBaYj6e0",
         libraries: "places" // This is required if you use the Autocomplete plugin
     }
 });
-import "chart.js";
-import "hchs-vue-charts";
-Vue.use(window.VueCharts);
+
 import Vuetify from "../plugins/vuetify";
 import VueFuse from "vue-fuse";
+import Map from "./components/Map";
+import district from "./components/DistrictComponent";
 
 Vue.use(VueFuse);
 /**
@@ -37,22 +39,38 @@ Vue.use(VueFuse);
 
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
-Vue.component("gmap-custom-marker", GmapCustomMarker);
+
 Vue.component(
     "example-component",
     require("./components/ExampleComponent.vue").default
 );
 Vue.component("Map", require("./components/Map.vue").default);
+Vue.component(
+    "DistrictComponent",
+    require("./components/DistrictComponent.vue").default
+);
 
 Vue.component("cluster", GmapCluster);
 Vue.component("gmap-custom-marker", GmapCustomMarker);
 
+const router = new VueRouter({
+    mode: "history",
+    routes: [
+        {
+            path: "/",
+            name: "home",
+            component: Map
+        },
+        {
+            path: "/district",
+            name: "district",
+            component: district
+        }
+    ]
+});
+
 const app = new Vue({
     vuetify: Vuetify,
-    el: "#app"
-});
-export default new Vuetify({
-    icons: {
-        iconfont: "mdiSvg"
-    }
+    el: "#app",
+    router
 });

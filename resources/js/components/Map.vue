@@ -1,50 +1,50 @@
 <template>
     <div>
         <div v-if="loading">
-            <v-progress-linear indeterminate color="cyan"></v-progress-linear>
+            <v-progress-linear indeterminate color="cyan"> </v-progress-linear>
         </div>
-<<<<<<< HEAD
-        <v-alert
-        prominent
-        type="info"
-        dismissible
-      >
-       <v-col class="grow" draggable>Maps has been loaded and your current location is trace press</v-col>
-          <v-col class="shrink">
-            <v-btn  v-on:click="selectsearch(22.2587,71.1924,7)">
-                  continue
-                </v-btn>
-          </v-col>
-        </v-alert>
-=======
-        <p class="text-left"><v-btn v-on:click="selectsearch(22.2587,71.1924,7)">
-                  Activate gujarat map
-                </v-btn>Scroll bellow to see statistics</p>
->>>>>>> e8f104b3511a4534122b630ab588537acbca0160
-        <GmapMap
-            :center="coordinates"
-            :zoom="val"
-            style="width: auto; height: 101vh"
-        >
-            <gmap-custom-marker :marker="uc">
-                <img
-                    src="https://cdn4.iconfinder.com/data/icons/user-icons-5/100/user-17-512.png"
-                    alt=""
-                    height="40px"
-                    class="animated infinite flash"
-                />
-            </gmap-custom-marker>
-            <cluster>
-                <GmapMarker
-                    :key="index"
-                    v-for="(m, index) in markers"
-                    :position="m"
-                    :clickable="true"
-                    :draggable="false"
-                    @click="center = m.position"
-                />
-            </cluster>
-        </GmapMap>
+
+        <div v-else>
+            <v-alert prominent type="info" dismissible>
+                <v-col class="grow" draggable
+                    >Maps has been loaded and your current location is trace
+                    press</v-col
+                >
+                <v-col class="shrink">
+                    <v-btn
+                        color="primary"
+                        v-on:click="selectsearch(22.2587, 71.1924, 7)"
+                    >
+                        continue
+                        <v-icon dark right>mdi-checkbox-marked-circle</v-icon>
+                    </v-btn>
+                </v-col>
+            </v-alert>
+            <GmapMap
+                :center="coordinates"
+                :zoom="val"
+                style="width: auto; height: 101vh"
+            >
+                <gmap-custom-marker :marker="uc">
+                    <img
+                        src="https://cdn4.iconfinder.com/data/icons/user-icons-5/100/user-17-512.png"
+                        alt=""
+                        height="40px"
+                        class="animated infinite flash"
+                    />
+                </gmap-custom-marker>
+                <cluster>
+                    <GmapMarker
+                        :key="index"
+                        v-for="(m, index) in markers"
+                        :position="m"
+                        :clickable="true"
+                        :draggable="false"
+                        @click="center = m.position"
+                    />
+                </cluster>
+            </GmapMap>
+        </div>
         <v-col cols="12" sm="6" md="3">
             <v-text-field
                 label="Search for district & zooom"
@@ -62,8 +62,12 @@
         <div v-if="loading2">
             <v-progress-linear indeterminate color="yellow"></v-progress-linear>
         </div>
-        <v-app id="inspire">
-            <v-simple-table>
+        <v-app id="inspire" ref="statistics">
+            <v-alert type="info" dismissible>
+                You are now on district statistics and locate button will zoom
+                district on maps for clear view
+            </v-alert>
+            <v-simple-table :height="400">
                 <template v-slot:default>
                     <thead>
                         <tr>
@@ -109,8 +113,8 @@ export default {
     data() {
         return {
             coordinates: {
-                lat: 22, //default coordinates of Gujarat
-                lng: 72
+                lat: 22.2587, //default coordinates of Gujarat
+                lng: 71.1924
             },
             val: 7,
             uc: {
@@ -165,7 +169,6 @@ export default {
         selectsearch(lat, lng, val) {
             this.selectedcoords.lat = lat;
             this.selectedcoords.lng = lng;
-
             this.coordinates = this.selectedcoords;
             this.val = val;
         }
