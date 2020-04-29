@@ -7,28 +7,31 @@
             <v-list nav dense>
                 <v-list-item link>
                     <v-list-item-content>
-                        Overview
+                    <router-link :to="{ name: 'home' }">Home</router-link> 
                     </v-list-item-content>
                 </v-list-item>
                 <v-list-item link>
                     <v-list-item-content>
-                        <v-list-item-title>Prevention</v-list-item-title>
+                    <router-link :to="{ name: 'district' }">District</router-link> 
                     </v-list-item-content>
                 </v-list-item>
                
                 <v-list-item link>
-                          <v-icon>fas fa-share</v-icon>
 
                     <v-list-item-content>
-                        <v-list-item-title>Share</v-list-item-title>
+                        <v-list-item-title>      <v-icon>mdi-share</v-icon>
+Share</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
+             <v-list-item >
                   <v-switch
                              v-model="$vuetify.theme.dark"
                                 hide-details
                                 inset
-                            label=""
+                                small
+                            label="Theme dark"
                             ></v-switch>
+             </v-list-item>
             </v-list>
           
         </v-navigation-drawer>
@@ -40,8 +43,7 @@
 
         <v-content>
             
-                <Map></Map>
-
+                <router-view></router-view>
 
         </v-content>
 

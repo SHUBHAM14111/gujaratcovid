@@ -1,3 +1,4 @@
+  
 <template>
     <div>
         <div v-if="loading">
@@ -11,6 +12,7 @@
       </div>
      
      
+        <div v-else>
 
         <v-alert
         prominent
@@ -19,8 +21,10 @@
       >
        <v-col class="grow" draggable>Maps has been loaded and your current location is trace press</v-col>
           <v-col class="shrink">
-            <v-btn  v-on:click="selectsearch(22.2587,71.1924,7)">
+            <v-btn  color="primary" v-on:click="selectsearch(22.2587,71.1924,7)">
                   continue
+                <v-icon dark right>mdi-checkbox-marked-circle</v-icon>
+
                 </v-btn>
           </v-col>
         </v-alert>
@@ -51,6 +55,7 @@
             </cluster>
             
         </GmapMap>
+        </div>
         <v-col cols="12" sm="6" md="3">
             <v-text-field
               label="Search for district & zooom"
@@ -74,7 +79,10 @@
         <v-alert type="info" dismissible>
         You are now on district statistics and locate button will zoom district on maps for clear view
       </v-alert>
-    <v-simple-table>
+    <v-simple-table
+    :height="400"
+
+    >
         
       <template v-slot:default>
         <thead>
@@ -101,17 +109,11 @@
 
               </td>
           </tr>
-        </tbody>
-        
+        </tbody>      
       </template>
-
-      
     </v-simple-table>
-    
-
   </v-app>
-    </div>
-    
+    </div>   
 </template>
 
 <script>
@@ -146,12 +148,10 @@ export default {
                 return district.name.toLowerCase().includes(this.search.toLowerCase())
                 
             })
-
             }
             else{
                 return this.districts
             }
-
             }
             },
             
@@ -171,14 +171,12 @@ export default {
                         //console.log(res.data);
                         this.districts = res.data;
                      }).finally(()=>(this.loading2 = false));
-
             },
             
            selectsearch(lat,lng,val){
                
                this.selectedcoords.lat = lat;
                this.selectedcoords.lng = lng;
-
                this.coordinates = this.selectedcoords;
                this.val = val;
            },
@@ -202,7 +200,6 @@ export default {
         }
         this.getlocation();
         this.selectsearch();
-
     }
 };
 </script>

@@ -25,9 +25,6 @@
     <div id="app">
         <example-component></example-component>
 
-        <main class="py-4">
-            @yield('content')
-        </main>
     </div>
 </body>
 </html>
