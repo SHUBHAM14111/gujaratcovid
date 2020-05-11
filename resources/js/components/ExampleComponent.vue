@@ -72,11 +72,9 @@ export default {
     props: {
         source: String
     },
-
     data: () => ({
         drawer: null
     }),
-
     created() {
         this.$vuetify.theme.dark = false;
     }
@@ -86,13 +84,11 @@ export default {
 
 <style>
 .slither-enter-active, .slither-leave-active {
-  transition: transform 0.8s;
+  transition: transform 0.2s;
 }
-
 .slither-enter, .slither-leave-to {
   transform: translateX(-100%);
 }
-
 .slither-enter-to, .slither-leave {
   transform: translateX(0);
 }

@@ -13,10 +13,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//  Route::get('/crudservice', function () {
+//      return view('home');
+//  });
 
 //Auth::routes();
 
-Route::get('/{any}', 'HomeController@index')->where('any','.*');
+
+Route::get('/{any}', 'HomeController@index')->where('any', '^(?!api\/)[\/\w\.-]*');
+
+
+
+
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

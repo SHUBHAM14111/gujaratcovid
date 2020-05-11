@@ -101,7 +101,7 @@
             <td>{{ district.died }}</td>
 
             <td>
-            <v-btn small color="primary" @click="coordinates.lat=district.lat;  coordinates.lng = district.lng ; val=10;">Location</v-btn>
+            <v-btn small color="primary" @click="coordinates.lat=district.lat;  coordinates.lng = district.lng ; val=10;">Location <v-icon>mdi-map-marker</v-icon></v-btn>
 
               </td>
           </tr>
@@ -127,6 +127,19 @@ export default {
                 lng: 71.1924
             },
             markers: [],
+            pointers: [],
+            markers: {
+                id: '',
+                name: '',
+                address: '',
+                lat:'',
+                lng:''
+              },
+              pointers: {
+                id: '',
+                lat: '',
+                lng: '',
+              },
             districts: [],
             search: null,
             selectedcoords: {
@@ -137,6 +150,7 @@ export default {
             loading2: false
         };
     },
+
    computed: {
             filteredList() {
             if(this.search){
@@ -152,14 +166,16 @@ export default {
             },
             
     methods: {
+        
             getlocation(){
                 this.loading = true
                 this.loading2=  true
-                fetch('api/patients')
+                fetch('/api/patients')
                      .then(res =>res.json())
                      .then(res=>{
                         //console.log(res.data);
                         this.markers = res.data;
+                        
                      }).finally(()=>(this.loading = false));
                 fetch('api/districts')
                      .then(res =>res.json())

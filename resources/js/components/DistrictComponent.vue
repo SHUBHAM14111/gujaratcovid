@@ -46,7 +46,7 @@
         },
         methods: {
             getdistrict(){
-                fetch('api/districts')
+                fetch('/api/districts')
                      .then(res =>res.json())
                      .then(res=>{
                         //console.log(res.data);

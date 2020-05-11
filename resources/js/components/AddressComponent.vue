@@ -1,53 +1,223 @@
+
 <template>
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">Address List</div>
-                
-                <div class="card-body" v-for="patient in patients" v-bind:key="patient.id">
+ <v-app id="inspire">
+   <v-form
+      ref="form"
+      @submit.prevent="addpatient"
+    >
+      <v-text-field
+        v-model="patient.name"
+        :counter="10"
+        label="name"
+        required
+      ></v-text-field>
+  
+      <v-text-field
+        v-model="patient.address"
+        label="address"
+        required
+      ></v-text-field>
+      
+     
+  
+      <v-btn
+        color="success"
+        class="mr-4"
+        type="submit"
+      >
+        Save
+      </v-btn>
+  
+      <v-btn
+        color="error"
+        class="mr-4"
+        @click="clearForm()"
+      >
+        Reset Form
+      </v-btn>
+  
+      
+    </v-form>
+        <br>
 
-                
-                        <h2>{{ patient.address }}</h2>
-                        <h2>{{ patient.name }}</h2>
-                        <h2>{{ patient.longitude }}</h2>
-                        <h2>{{ patient.latitude }}</h2>
-           
+    <v-text-field
+              label="Search for patient"
+              outlined
+              v-model="search"
+            >
+    </v-text-field>
+    <v-simple-table height="400">
+      <template v-slot:default>
+        <thead>
+          <tr>
+            <th class="text-left">Address</th>
+            <th class="text-left">Name</th>
+            <th class="text-left">lat</th>
+            <th class="text-left">lng</th>
+            <th class="text-left">Edit</th>
+            <th class="text-left">Delete</th>
 
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+          </tr>
+        </thead>
+        <tbody>
+          <tr  v-for="patient in filteredList" :key="patient.id">
+            <td>{{ patient.address }}</td>
+            <td>{{ patient.name }}</td>
+            <td>{{ patient.lng }}</td>
+            <td>{{ patient.lat }}</td>
+            <td><v-btn @click="editpatient(patient)">Edit</v-btn></td>
+            <td><v-btn @click="deletepatient(patient.id)">Delete</v-btn></td>
+          </tr>
+        </tbody>
+      </template>
+    </v-simple-table>
+  </v-app>
 </template>
 
 <script>
     export default {
-
+        
         data() {
             return {
               patients: [],
-              patients: {
-                  id: '',
-                  name:'',
-                  address:'',
-                  latitude:'',
-                  longitude:''
+              geocode:[],
+              patient: {
+                id: '',
+                name: '',
+                address: '',
+                lat:'',
+                lng:''
               },
+              
+             patient_id: '',
+             edit: false,
+              search: null,
+
             }
         },
+        created() {
+            this.getpatient()
+        },
+        
         methods: {
-            getpatient(){
-                fetch('api/patients')
+            getpatient(page_url){
+                page_url = page_url || '/api/adminpatients';
+
+                fetch(page_url)
                      .then(res =>res.json())
                      .then(res=>{
                         //console.log(res.data);
                         this.patients = res.data;
                      })
+            },
+            deletepatient(id) {
+                if (confirm('Are You Sure?')) {
+                fetch(`/api/patient/${id}`, {
+                method: 'delete'
+                })
+                .then(res => res.json())
+                .then(data => {
+                  alert('Patient Removed');
+                  this.getpatient();
+              })
+              .catch(err => console.log(err));
             }
+            },
+          
+          addpatient() {
+              if (this.edit === false) {
+              // Add
+             // console.log(this.patient.address)
+             var latitude,longitude
+              var addressObj={
+                address_line_1: this.patient.address,
+              }
+              Vue.$geocoder.send(addressObj, res => {latitude = res.results[0].geometry.location.lat.toString(), 
+                                                    longitude = res.results[0].geometry.location.lng.toString(),
+                                                                  //console.log(latitude,longitude),
+                                                      this.patient.lat = latitude.toString(),
+                                                      this.patient.lng = longitude.toString() 
+              fetch('/api/patient', {
+              method: 'post',
+              
+              body: JSON.stringify(this.patient),
+              headers: {
+              'content-type': 'application/json'
+              }
+              })
+              .then(res => res.json())
+              .then(data => {
+                  this.clearForm();
+                  alert('Patient Added');
+                  this.getpatient();
+              })
+              .catch(err => console.log(err));})
+              }
+               else {
+        // Update
+        var latitude,longitude
+              var addressObj={
+                address_line_1: this.patient.address,
+              }
+              Vue.$geocoder.send(addressObj, res => {latitude = res.results[0].geometry.location.lat.toString(), 
+                                                    longitude = res.results[0].geometry.location.lng.toString(),
+                                                                  //console.log(latitude,longitude),
+                                                      this.patient.lat = latitude.toString(),
+                                                      this.patient.lng = longitude.toString() 
+              fetch('/api/patient', {
+              method: 'put',
+              body: JSON.stringify(this.patient),
+              headers: {
+              'content-type': 'application/json'
+              }
+              })
+              .then(res => res.json())
+              .then(data => {
+              this.clearForm();
+              alert('Patient Updated');
+              this.getpatient();
+            })
+            .catch(err => console.log(err));});
+          }
+          },
+          editpatient(patient) {
+              this.edit = true;
+              this.patient.id = patient.id;
+              this.patient.patient_id = patient.id;
+              this.patient.name = patient.name;
+              this.patient.address = patient.address;
+              
+              
+          },
+         
+
+            validate () {
+                this.$refs.form.validate()
+            },
+           clearForm() {
+            this.edit = false;
+            this.patient.id = null;
+            this.patient.patient_id = null;
+            this.patient.name = '';
+            this.patient.address = '';
+            this.patient.lat = '';
+            this.patient.lng = '';
+
+            },
+            
         },
-        created() {
-            this.getpatient()
-        }
+computed: {
+            filteredList() {
+            if(this.search){
+                return this.patients.filter(patient => {
+                return patient.name.toLowerCase().includes(this.search.toLowerCase())
+                
+            })
+            }
+            else{
+                return this.patients
+            }
+            }
+            },
     }
 </script> 

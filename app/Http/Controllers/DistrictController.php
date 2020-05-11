@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\District;
 use App\Http\Resources\DistrictCollection as DistrictCollection;
+use Illuminate\Support\Facades\Redis;
+
 class DistrictController extends Controller
 {
     /**
@@ -13,78 +15,73 @@ class DistrictController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth:api',['except' => ['index','show']]);
+
+    }
+    
     public function index()
     {
         //
+        $redis    = Redis::connection();
+
+
+            if ($districts = $redis->get('districts.all')) {
+                //console.log("ok");
+                $districts = json_decode($districts);
+
+              return DistrictCollection::collection($districts);
+
+           }
         $districts = District::all();
+
+        
+       // $districts =  District::orderBy('infected','desc');
+       //$districts = Redis::get('District') ;
+       Redis::setex('districts.all', 60*2, $districts); 
+
         //$patients = DB::select('SELECT * FROM patients');
         return DistrictCollection::collection($districts);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $districts = $request->isMethod('put') ? District::findOrFail($request->district_id) : new District;
+
+        $districts->id = $request->input('district_id');
+        $districts->name = $request->input('name');
+        $districts->cured = $request->input('cured');
+        $districts->infected = $request->input('infected');
+        $districts->died = $request->input('died');
+
+        $districts->lat = $request->input('lat');
+        $districts->lng = $request->input('lng');
+
+        if($districts->save()) {
+            return new DistrictCollection($districts);
+        }
+        
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function show($id)
     {
-        $district = District::findOrFail($id);
-        return new DistrictResource($district);
+        // Get patient
+        $districts = District::findOrFail($id);
+
+        // Return single patient as a resource
+        return new DistrictCollection($districts);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function destroy($id)
     {
-        //
+        // Get patient
+        $districts = District::findOrFail($id);
+
+        if($districts->delete()) {
+            return new DistrictCollection($districts);
+        }    
     }
 }

@@ -10,7 +10,7 @@
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
     "devDependencies": {
-        "axios": "^0.19",
+        "axios": "^0.19.2",
         "bootstrap": "^4.0.0",
         "cross-env": "^7.0",
         "jquery": "^3.2",
@@ -24,13 +24,17 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "@pderas/vue2-geocoder": "^1.1.0",
+        "@websanova/vue-auth": "^3.1.2-beta",
+        "es6-promise": "^4.2.8",
+        "vue-axios": "^2.1.5",
         "vue-browser-geolocation": "^1.8.0",
         "vue-fuse": "^2.2.1",
         "vue-loader": "^15.9.1",
         "vue-router": "^3.1.6",
         "vue2-gmap-custom-marker": "^5.6.0",
         "vue2-google-maps": "^0.10.7",
-        "vuetify": "^2.2.22",
+        "vuetify": "^2.2.26",
         "vuetify-loader": "^1.4.3"
     }
 }
