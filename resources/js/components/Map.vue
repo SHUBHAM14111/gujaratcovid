@@ -10,15 +10,7 @@
                     >Maps has been loaded and your current location is trace
                     press</v-col
                 >
-                <v-col class="shrink">
-                    <v-btn
-                        color="primary"
-                        v-on:click="selectsearch(22.2587, 71.1924, 7)"
-                    >
-                        continue
-                        <v-icon dark right>mdi-checkbox-marked-circle</v-icon>
-                    </v-btn>
-                </v-col>
+                <v-col class="shrink"> </v-col>
             </v-alert>
             <GmapMap
                 :center="coordinates"
@@ -55,7 +47,11 @@
             <v-btn
                 small
                 color="primary"
-                v-on:click="selectsearch(22.2587, 71.1924, 7)"
+                @click="
+                    coordinates.lat = 22.2587;
+                    coordinates.lng = 71.1924;
+                    val = 7;
+                "
                 >Click to see Gujarat</v-btn
             >
         </v-col>
@@ -90,12 +86,10 @@
                                 <v-btn
                                     small
                                     color="primary"
-                                    v-on:click="
-                                        selectsearch(
-                                            district.lat,
-                                            district.lng,
-                                            10
-                                        )
+                                    @click="
+                                        coordinates.lat = district.lat;
+                                        coordinates.lng = district.lng;
+                                        val = 10;
                                     "
                                     >Location</v-btn
                                 >
@@ -164,13 +158,6 @@ export default {
                     this.districts = res.data;
                 })
                 .finally(() => (this.loading2 = false));
-        },
-
-        selectsearch(lat, lng, val) {
-            this.selectedcoords.lat = lat;
-            this.selectedcoords.lng = lng;
-            this.coordinates = this.selectedcoords;
-            this.val = val;
         }
     },
 
@@ -189,7 +176,6 @@ export default {
             alert("Browser not supported");
         }
         this.getlocation();
-        this.selectsearch();
     }
 };
 </script>

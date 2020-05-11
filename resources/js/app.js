@@ -7,6 +7,9 @@
 require("./bootstrap");
 
 window.Vue = require("vue");
+import "chart.js"
+import "hchs-vue-charts"
+Vue.use(window.VueCharts)
 import VueGeolocation from "vue-browser-geolocation";
 Vue.use(VueGeolocation);
 import GmapCustomMarker from "vue2-gmap-custom-marker";
@@ -68,7 +71,6 @@ const router = new VueRouter({
         }
     ]
 });
-
 const app = new Vue({
     vuetify: Vuetify,
     el: "#app",

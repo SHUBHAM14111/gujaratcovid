@@ -52,7 +52,9 @@
         </v-app-bar>
 
         <v-content>
-            <router-view></router-view>
+            <transition name="slither">
+                <router-view></router-view>
+            </transition>
         </v-content>
 
         <v-footer app>
@@ -77,9 +79,19 @@ export default {
 };
 </script>
 
-<style lang="css" scoped>
-a {
-    text-decoration: none;
-    color: inherit;
+<style>
+.slither-enter-active,
+.slither-leave-active {
+    transition: transform 0.8s;
+}
+
+.slither-enter,
+.slither-leave-to {
+    transform: translateX(-100%);
+}
+
+.slither-enter-to,
+.slither-leave {
+    transform: translateX(0);
 }
 </style>
