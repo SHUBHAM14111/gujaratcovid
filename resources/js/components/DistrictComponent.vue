@@ -1,28 +1,17 @@
 <template>
     <v-app id="inspire">
-        <v-simple-table>
-            <template v-slot:default>
-                <thead>
-                    <tr>
-                        <th class="text-left">District</th>
-                        <th class="text-left">Infected</th>
-                        <th class="text-left">Cured</th>
-                        <th class="text-left">Died</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="district in districts" :key="district.id">
-                        <!-- <td><v-chip :color="getColor(district.infected)" dark>{{ district.name }}</v-chip></td> -->
-                        <td :class="getColor(district.infected)">
-                            {{ district.name }}
-                        </td>
-                        <td>{{ district.infected }}</td>
-                        <td>{{ district.cured }}</td>
-                        <td>{{ district.died }}</td>
-                    </tr>
-                </tbody>
-            </template>
-        </v-simple-table>
+    <v-data-table
+    :headers="headers"
+    :items="destricts"
+    class="elevation-1 mytable"
+  >
+    <template v-slot:items="props">
+      <tr class="danger"><td>{{ props.item.name }}</td></tr>
+      <td class="text-xs-right">{{ props.item.infected }}</td>
+      <td class="text-xs-right">{{ props.item.cured }}</td>
+      <td class="text-xs-right">{{ props.item.died }}</td>
+    </template>
+        </v-data-table>
         <!-- <chartjs-doughnut :datasets="datasets" :option="option"></chartjs-doughnut> -->
     </v-app>
 </template>
@@ -31,20 +20,19 @@
 export default {
     data() {
         return {
-            datasets: [
-                {
-                    data: [200, 300, 500],
-                    backgroundColor: ["Red", "Yellow", "Purple"]
-                }
-            ],
-            option: {
-                title: {
-                    display: true,
-                    position: "bottom",
-                    text: "District counts"
-                }
-            },
-            districts: [],
+            headers: [
+          {
+            text: 'District',
+            align: 'left',
+            sortable: false,
+            value: 'name'
+          },
+          { text: 'Infected', value: 'infected' },
+          { text: 'Cured', value: 'cured' },
+          { text: 'Died', value: 'died' },
+        ],
+        
+            destricts: [],
             districts: {
                 id: "",
                 name: "",
@@ -67,7 +55,7 @@ export default {
                 .then(res => res.json())
                 .then(res => {
                     console.log(res.data);
-                    this.districts = res.data;
+                    this.destricts = res.data;
                 });
         }
     },
@@ -79,16 +67,20 @@ export default {
 </script>
 
 <style lang="css" scoped>
+.mytable table tr {
+    background-color: lightgoldenrodyellow;
+    border-bottom: none !important;
+ }
 .danger {
-    background-color: rgba(255, 0, 0, 0.4);
-    color: white;
+    background-color: rgba(255, 0, 0, 0.4) !important;
+    
 }
 .war {
-    background-color:rgba(220, 220, 0, 0.4);
-    color: white;
+    background-color:rgba(220, 220, 0, 0.4) !important;
+    
 }
 .safe {
-    background-color: rgba(0, 255, 0, 0.4);
-    color: white;
+    background-color: rgba(0, 255, 0, 0.4) !important;
+    
 }
 </style>

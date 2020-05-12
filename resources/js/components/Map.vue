@@ -77,7 +77,7 @@
 
                     <tbody>
                         <tr v-for="district in filteredList" :key="district.id">
-                            <td>{{ district.name }}</td>
+                            <td :class="getColor(district.infected)">{{ district.name }}</td>
                             <td>{{ district.infected }}</td>
                             <td>{{ district.cured }}</td>
                             <td>{{ district.died }}</td>
@@ -141,6 +141,11 @@ export default {
     },
 
     methods: {
+        getColor: function(cases) {
+            if (cases > 100) return "danger";
+            else if (cases > 50) return "war";
+            else return "safe";
+        },
         getlocation() {
             this.loading = true;
             this.loading2 = true;
@@ -180,4 +185,17 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="css" scoped>
+.danger {
+    background-color: rgba(255, 0, 0, 0.4) !important;
+    
+}
+.war {
+    background-color:rgba(220, 220, 0, 0.4) !important;
+    
+}
+.safe {
+    background-color: rgba(0, 255, 0, 0.4) !important;
+    
+}
+</style>
