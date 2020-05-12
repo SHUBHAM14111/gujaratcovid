@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\District;
 use App\Http\Resources\DistrictCollection as DistrictCollection;
-use Illuminate\Support\Facades\Redis;
 
 class DistrictController extends Controller
 {
@@ -23,25 +22,12 @@ class DistrictController extends Controller
     
     public function index()
     {
-        //
-        $redis    = Redis::connection();
-
-
-            if ($districts = $redis->get('districts.all')) {
-                //console.log("ok");
-                $districts = json_decode($districts);
-
-              return DistrictCollection::collection($districts);
-
-           }
+        
         $districts = District::all();
 
         
-       // $districts =  District::orderBy('infected','desc');
-       //$districts = Redis::get('District') ;
-       Redis::setex('districts.all', 60*2, $districts); 
+      
 
-        //$patients = DB::select('SELECT * FROM patients');
         return DistrictCollection::collection($districts);
     }
 

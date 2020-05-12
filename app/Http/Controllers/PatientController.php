@@ -7,7 +7,6 @@ use App\Location;
 use DB;
 use Illuminate\Http\Request;
 use App\Http\Resources\PatientCollection as PatientCollection;
-use Illuminate\Support\Facades\Redis;
 
 class PatientController extends Controller
 {
@@ -15,20 +14,9 @@ class PatientController extends Controller
     
     public function index(){
 
-        $redis    = Redis::connection();
-
-
-            if ($patients = $redis->get('patients.all')) {
-                //console.log("ok");
-                $patients = json_decode($patients);
-
-                return PatientCollection::collection($patients);
-
-           }
+        
         $patients = Patient::all();
-        Redis::setex('patients.all', 60*2, $patients); 
-
-        //$patients = DB::select('SELECT * FROM patients');
+       
         return PatientCollection::collection($patients);
     }
     public function adminindex(){

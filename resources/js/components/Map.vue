@@ -177,7 +177,7 @@ export default {
                         this.markers = res.data;
                         
                      }).finally(()=>(this.loading = false));
-                fetch('api/districts')
+                fetch('/api/districts')
                      .then(res =>res.json())
                      .then(res=>{
                         //console.log(res.data);
