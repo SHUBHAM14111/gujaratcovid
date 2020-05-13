@@ -1,3 +1,3 @@
 <template>
-    <p>Ahh Shit </p>
+    <p>404 not found </p>
 </template>

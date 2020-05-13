@@ -21,6 +21,9 @@ import VueFuse from 'vue-fuse'
 import Map from './components/Map'
 import district from './components/DistrictComponent'
 import Login from './components/LoginComponent'
+//import Register from './components/RegisterComponent'
+import Notfound from './components/Notfound'
+
 import App from './components/ExampleComponent'
 import auth from './auth'
 import VueAuth from '@websanova/vue-auth'
@@ -101,6 +104,25 @@ const router = new VueRouter({
                 auth: false
             }
         },
+        //disable register once used
+        // {
+        //     path: '/register',
+        //     name: 'register',
+        //     component: Register,
+        //     meta: {
+        //         auth: false
+        //     }
+        // },
+
+        {
+            path: '*',
+            component: Notfound,
+            meta: {
+                auth: undefined
+            }
+        },
+
+        //above
         {
             path: '/admin/',
             component: adminboard,

@@ -30,6 +30,8 @@ Route::delete('patient/{id}', 'PatientController@destroy');
 
 //*****************Districts api */
 Route::get('/districts', 'DistrictController@index');
+Route::get('/admindistricts', 'DistrictController@adminindex');
+
 Route::get('district/{id}', 'DistrictController@show');
 Route::post('district', 'DistrictController@store');
 Route::put('district', 'DistrictController@store');

@@ -15,25 +15,28 @@ class DistrictController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct()
-    {
-        $this->middleware('auth:api',['except' => ['index','show']]);
-
-    }
+    
     
     public function index()
     {
         
         //$districts = District::all();
 
-        $districts = Cache::remember('districtskey', 60, function(){
+        $districts = Cache::remember('districtskey', 25, function(){
             return District::all();
         });
       
 
         return DistrictCollection::collection($districts);
     }
+    public function adminindex(){
 
+       
+        $districts = District::all();
+
+        //$patients = DB::select('SELECT * FROM patients');
+        return DistrictCollection::collection($districts);
+    }
     public function store(Request $request)
     {
         $districts = $request->isMethod('put') ? District::findOrFail($request->district_id) : new District;

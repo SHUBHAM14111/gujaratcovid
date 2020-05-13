@@ -63,7 +63,7 @@
                 You are now on district statistics and locate button will zoom
                 district on maps for clear view
             </v-alert>
-            <v-simple-table :height="400">
+            <v-simple-table :height="700">
                 <template v-slot:default>
                     <thead>
                         <tr>

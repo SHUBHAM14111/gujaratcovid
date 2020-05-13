@@ -125,7 +125,7 @@
         },
         methods: {
             getdistrict(page_url){
-                page_url = page_url || '/api/districts';
+                page_url = page_url || '/api/admindistricts';
 
                 fetch(page_url)
                      .then(res =>res.json())
