@@ -150,7 +150,7 @@ const router = new VueRouter({
 
 Vue.router = router
 Vue.use(VueAxios, axios)
-axios.defaults.baseURL = `http://127.0.0.1:8000/api`
+axios.defaults.baseURL = `http://127.0.0.1:8000/api` //change it 
 Vue.use(VueAuth, auth)
 
 App.router = Vue.router

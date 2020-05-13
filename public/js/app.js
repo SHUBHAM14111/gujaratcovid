@@ -45340,7 +45340,45 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("p", [_vm._v("404 not found ")])
+  return _c(
+    "div",
+    { attrs: { id: "app" } },
+    [
+      _c(
+        "v-app",
+        { attrs: { id: "inspire" } },
+        [
+          _c(
+            "v-layout",
+            { attrs: { "align-center": "", "justify-center": "" } },
+            [
+              _c(
+                "v-card",
+                { attrs: { width: "500px", elevation: "20" } },
+                [
+                  _vm.has_error
+                    ? _c(
+                        "v-alert",
+                        { attrs: { type: "warning", dismissible: "" } },
+                        [_vm._v("Either mail or password is wrong ")]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c("v-col", { attrs: { justify: "space-between" } }, [
+                    _c("h2", [_vm._v(" 404 Page not found ")])
+                  ])
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -105029,7 +105067,8 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_6__["default"]({
 });
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.router = router;
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_axios__WEBPACK_IMPORTED_MODULE_11___default.a, axios__WEBPACK_IMPORTED_MODULE_10___default.a);
-axios__WEBPACK_IMPORTED_MODULE_10___default.a.defaults.baseURL = "http://127.0.0.1:8000/api";
+axios__WEBPACK_IMPORTED_MODULE_10___default.a.defaults.baseURL = "http://127.0.0.1:8000/api"; //change it 
+
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(_websanova_vue_auth__WEBPACK_IMPORTED_MODULE_20__["default"], _auth__WEBPACK_IMPORTED_MODULE_19__["default"]);
 _components_ExampleComponent__WEBPACK_IMPORTED_MODULE_18__["default"].router = vue__WEBPACK_IMPORTED_MODULE_0___default.a.router;
 _components_ExampleComponent__WEBPACK_IMPORTED_MODULE_18__["default"].vuetify = _plugins_vuetify__WEBPACK_IMPORTED_MODULE_12__["default"];
