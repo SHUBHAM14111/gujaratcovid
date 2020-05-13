@@ -7,6 +7,7 @@ use App\Location;
 use DB;
 use Illuminate\Http\Request;
 use App\Http\Resources\PatientCollection as PatientCollection;
+use Illuminate\Support\Facades\Cache;
 
 class PatientController extends Controller
 {
@@ -15,7 +16,11 @@ class PatientController extends Controller
     public function index(){
 
         
-        $patients = Patient::all();
+        $patients = Cache::remember('patients', 60, function(){
+            
+            return Patient::all();
+        });
+        //$patients = Patient::all();
        
         return PatientCollection::collection($patients);
     }

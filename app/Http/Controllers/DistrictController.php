@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\District;
 use App\Http\Resources\DistrictCollection as DistrictCollection;
+use Illuminate\Support\Facades\Cache;
 
 class DistrictController extends Controller
 {
@@ -23,9 +24,11 @@ class DistrictController extends Controller
     public function index()
     {
         
-        $districts = District::all();
+        //$districts = District::all();
 
-        
+        $districts = Cache::remember('districtskey', 60, function(){
+            return District::all();
+        });
       
 
         return DistrictCollection::collection($districts);

@@ -3595,12 +3595,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-//
-//
-//
-//
 //
 //
 //
@@ -3629,28 +3623,33 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
-    return _defineProperty({
-      datasets: [{
-        data: [200, 300, 500],
-        backgroundColor: ["Red", "Yellow", "Purple"]
+    return {
+      headers: [{
+        text: 'District',
+        align: 'left',
+        sortable: false,
+        value: 'name'
+      }, {
+        text: 'Infected',
+        value: 'infected'
+      }, {
+        text: 'Cured',
+        value: 'cured'
+      }, {
+        text: 'Died',
+        value: 'died'
       }],
-      option: {
-        title: {
-          display: true,
-          position: "bottom",
-          text: "District counts"
-        }
-      },
-      districts: []
-    }, "districts", {
-      id: "",
-      name: "",
-      lat: "",
-      lng: "",
-      cured: "",
-      died: "",
-      infected: ""
-    });
+      destricts: [],
+      districts: {
+        id: "",
+        name: "",
+        lat: "",
+        lng: "",
+        cured: "",
+        died: "",
+        infected: ""
+      }
+    };
   },
   methods: {
     getColor: function getColor(cases) {
@@ -3663,7 +3662,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         return res.json();
       }).then(function (res) {
         // console.log(res.data);
-        _this.districts = res.data;
+        _this.destricts = res.data;
       });
     }
   },
@@ -4139,18 +4138,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -4257,9 +4244,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
-    var _ref;
-
-    return _ref = {
+    return {
       coordinates: {
         lat: 22.2587,
         //default coordinates of Gujarat
@@ -4272,21 +4257,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         lng: 71.1924
       },
       markers: [],
-      pointers: []
-    }, _defineProperty(_ref, "markers", {
-      id: '',
-      name: '',
-      address: '',
-      lat: '',
-      lng: ''
-    }), _defineProperty(_ref, "pointers", {
-      id: '',
-      lat: '',
-      lng: ''
-    }), _defineProperty(_ref, "districts", []), _defineProperty(_ref, "search", null), _defineProperty(_ref, "selectedcoords", {
-      lat: 22.2587,
-      lng: 71.1924
-    }), _defineProperty(_ref, "loading", false), _defineProperty(_ref, "loading2", false), _ref;
+      districts: [],
+      search: null,
+      selectedcoords: {
+        lat: 22.2587,
+        lng: 71.1924
+      },
+      loading: false,
+      loading2: false
+    };
   },
   computed: {
     filteredList: function filteredList() {
@@ -4302,12 +4281,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   methods: {
+    getColor: function getColor(cases) {
+      if (cases > 100) return "danger";else if (cases > 50) return "war";else return "safe";
+    },
     getlocation: function getlocation() {
       var _this2 = this;
 
       this.loading = true;
       this.loading2 = true;
-      fetch('/api/patients').then(function (res) {
+      fetch("api/patients").then(function (res) {
         return res.json();
       }).then(function (res) {
         //console.log(res.data);
@@ -4315,7 +4297,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       })["finally"](function () {
         return _this2.loading = false;
       });
-      fetch('/api/districts').then(function (res) {
+      fetch("api/districts").then(function (res) {
         return res.json();
       }).then(function (res) {
         //console.log(res.data);
@@ -8945,7 +8927,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.danger[data-v-6471d6b4] {\r\n    background-color: rgba(255, 0, 0, 0.4);\r\n    color: white;\n}\n.war[data-v-6471d6b4] {\r\n    background-color:rgba(220, 220, 0, 0.4);\r\n    color: white;\n}\n.safe[data-v-6471d6b4] {\r\n    background-color: rgba(0, 255, 0, 0.4);\r\n    color: white;\n}\r\n", ""]);
+exports.push([module.i, "\n.mytable table tr[data-v-6471d6b4] {\r\n    background-color: lightgoldenrodyellow;\r\n    border-bottom: none !important;\n}\n.danger[data-v-6471d6b4] {\r\n    background-color: rgba(255, 0, 0, 0.4) !important;\n}\n.war[data-v-6471d6b4] {\r\n    background-color:rgba(220, 220, 0, 0.4) !important;\n}\n.safe[data-v-6471d6b4] {\r\n    background-color: rgba(0, 255, 0, 0.4) !important;\n}\r\n", ""]);
 
 // exports
 
@@ -8964,7 +8946,26 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.slither-enter-active, .slither-leave-active {\n  transition: transform 0.2s;\n}\n.slither-enter, .slither-leave-to {\n  transform: translateX(-100%);\n}\n.slither-enter-to, .slither-leave {\n  transform: translateX(0);\n}\n", ""]);
+exports.push([module.i, "\n.slither-enter-active, .slither-leave-active {\n  transition: transform 0.5s;\n}\n.slither-enter, .slither-leave-to {\n  transform: translateX(-100%);\n}\n.slither-enter-to, .slither-leave {\n  transform: translateX(0);\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Map.vue?vue&type=style&index=0&id=479a2f41&lang=css&scoped=true&":
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Map.vue?vue&type=style&index=0&id=479a2f41&lang=css&scoped=true& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.danger[data-v-479a2f41] {\r\n    background-color: rgba(255, 0, 0, 0.4) !important;\n}\n.war[data-v-479a2f41] {\r\n    background-color:rgba(220, 220, 0, 0.4) !important;\n}\n.safe[data-v-479a2f41] {\r\n    background-color: rgba(0, 255, 0, 0.4) !important;\n}\r\n", ""]);
 
 // exports
 
@@ -43047,6 +43048,36 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Map.vue?vue&type=style&index=0&id=479a2f41&lang=css&scoped=true&":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Map.vue?vue&type=style&index=0&id=479a2f41&lang=css&scoped=true& ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./Map.vue?vue&type=style&index=0&id=479a2f41&lang=css&scoped=true& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Map.vue?vue&type=style&index=0&id=479a2f41&lang=css&scoped=true&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/lib/addStyles.js":
 /*!****************************************************!*\
   !*** ./node_modules/style-loader/lib/addStyles.js ***!
@@ -44451,52 +44482,44 @@ var render = function() {
     "v-app",
     { attrs: { id: "inspire" } },
     [
-      _c("v-simple-table", {
+      _c(
+        "v-alert",
+        { attrs: { prominent: "", type: "info", dismissible: "" } },
+        [
+          _c("v-col", { staticClass: "grow", attrs: { draggable: "" } }, [
+            _vm._v("You can click on the table header for sorting information")
+          ]),
+          _vm._v(" "),
+          _c("v-col", { staticClass: "shrink" })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("v-data-table", {
+        staticClass: "elevation-1 mytable",
+        attrs: { headers: _vm.headers, items: _vm.destricts },
         scopedSlots: _vm._u([
           {
-            key: "default",
-            fn: function() {
+            key: "items",
+            fn: function(props) {
               return [
-                _c("thead", [
-                  _c("tr", [
-                    _c("th", { staticClass: "text-left" }, [
-                      _vm._v("District")
-                    ]),
-                    _vm._v(" "),
-                    _c("th", { staticClass: "text-left" }, [
-                      _vm._v("Infected")
-                    ]),
-                    _vm._v(" "),
-                    _c("th", { staticClass: "text-left" }, [_vm._v("Cured")]),
-                    _vm._v(" "),
-                    _c("th", { staticClass: "text-left" }, [_vm._v("Died")])
-                  ])
+                _c("tr", { staticClass: "danger" }, [
+                  _c("td", [_vm._v(_vm._s(props.item.name))])
                 ]),
                 _vm._v(" "),
-                _c(
-                  "tbody",
-                  _vm._l(_vm.districts, function(district) {
-                    return _c("tr", { key: district.id }, [
-                      _c("td", { class: _vm.getColor(district.infected) }, [
-                        _vm._v(
-                          "\n                        " +
-                            _vm._s(district.name) +
-                            "\n                    "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(district.infected))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(district.cured))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(district.died))])
-                    ])
-                  }),
-                  0
-                )
+                _c("td", { staticClass: "text-xs-right" }, [
+                  _vm._v(_vm._s(props.item.infected))
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "text-xs-right" }, [
+                  _vm._v(_vm._s(props.item.cured))
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "text-xs-right" }, [
+                  _vm._v(_vm._s(props.item.died))
+                ])
               ]
-            },
-            proxy: true
+            }
           }
         ])
       })
@@ -45103,7 +45126,7 @@ var render = function() {
                     { staticClass: "grow", attrs: { draggable: "" } },
                     [
                       _vm._v(
-                        "Maps has been loaded and your current location is trace press"
+                        "Maps has been loaded and your current location is trace\n                press"
                       )
                     ]
                   ),
@@ -45209,7 +45232,7 @@ var render = function() {
         [
           _c("v-alert", { attrs: { type: "info", dismissible: "" } }, [
             _vm._v(
-              "\n      You are now on district statistics and locate button will zoom district on maps for clear view\n    "
+              "\n            You are now on district statistics and locate button will zoom\n            district on maps for clear view\n        "
             )
           ]),
           _vm._v(" "),
@@ -45248,7 +45271,9 @@ var render = function() {
                       "tbody",
                       _vm._l(_vm.filteredList, function(district) {
                         return _c("tr", { key: district.id }, [
-                          _c("td", [_vm._v(_vm._s(district.name))]),
+                          _c("td", { class: _vm.getColor(district.infected) }, [
+                            _vm._v(_vm._s(district.name))
+                          ]),
                           _vm._v(" "),
                           _c("td", [_vm._v(_vm._s(district.infected))]),
                           _vm._v(" "),
@@ -45271,11 +45296,7 @@ var render = function() {
                                     }
                                   }
                                 },
-                                [
-                                  _vm._v("Location "),
-                                  _c("v-icon", [_vm._v("mdi-map-marker")])
-                                ],
-                                1
+                                [_vm._v("Location")]
                               )
                             ],
                             1
@@ -105519,7 +105540,9 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Map_vue_vue_type_template_id_479a2f41_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Map.vue?vue&type=template&id=479a2f41&scoped=true& */ "./resources/js/components/Map.vue?vue&type=template&id=479a2f41&scoped=true&");
 /* harmony import */ var _Map_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Map.vue?vue&type=script&lang=js& */ "./resources/js/components/Map.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _Map_vue_vue_type_style_index_0_id_479a2f41_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Map.vue?vue&type=style&index=0&id=479a2f41&lang=css&scoped=true& */ "./resources/js/components/Map.vue?vue&type=style&index=0&id=479a2f41&lang=css&scoped=true&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 
 
 
@@ -105527,7 +105550,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _Map_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _Map_vue_vue_type_template_id_479a2f41_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
   _Map_vue_vue_type_template_id_479a2f41_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
@@ -105556,6 +105579,22 @@ component.options.__file = "resources/js/components/Map.vue"
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Map_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./Map.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Map.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Map_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/Map.vue?vue&type=style&index=0&id=479a2f41&lang=css&scoped=true&":
+/*!**************************************************************************************************!*\
+  !*** ./resources/js/components/Map.vue?vue&type=style&index=0&id=479a2f41&lang=css&scoped=true& ***!
+  \**************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Map_vue_vue_type_style_index_0_id_479a2f41_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader!../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./Map.vue?vue&type=style&index=0&id=479a2f41&lang=css&scoped=true& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Map.vue?vue&type=style&index=0&id=479a2f41&lang=css&scoped=true&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Map_vue_vue_type_style_index_0_id_479a2f41_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Map_vue_vue_type_style_index_0_id_479a2f41_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Map_vue_vue_type_style_index_0_id_479a2f41_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Map_vue_vue_type_style_index_0_id_479a2f41_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Map_vue_vue_type_style_index_0_id_479a2f41_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 

@@ -84,7 +84,7 @@ export default {
 
 <style>
 .slither-enter-active, .slither-leave-active {
-  transition: transform 0.2s;
+  transition: transform 0.5s;
 }
 .slither-enter, .slither-leave-to {
   transform: translateX(-100%);
