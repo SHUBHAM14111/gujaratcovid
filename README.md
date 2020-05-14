@@ -36,7 +36,7 @@ php artisan db:seed
 
 php artisan jwt:secret
 ```
-### Note:-admin registration is disabled so Admin email:-admin@gujaratcovid.com password:-awesome
+ Note:-admin registration is disabled so Admin email:-'admin@gujaratcovid.com' password:-awesome
 
 
 
