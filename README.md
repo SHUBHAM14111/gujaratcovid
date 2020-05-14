@@ -10,11 +10,25 @@ and also provide the accurate marking of the hotspots so that the users are aler
 - vuejs:Frontend
 - laravel/php:Backend
 - mysql:Database
-- redis:cachedrive
+- jwt based authentication
+- file:cachedrive
 
 
 GujaratCovid is accessible, neat, and provides clear structure of the case and presentation
 
+## Procedure to setup project in system
+# Run this commands step by step
+```bash
+git clone https://github.com/DhruvikDonga/gujaratcovid.git
+cd gujaratcovid
+composer install
+npm install
+copy .env.example .env
+php artisan key:generate
+php artisan migrate
+php artisan db:seed   
+php artisan jwt:secret
+```
 
 
 
