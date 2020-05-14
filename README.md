@@ -17,7 +17,7 @@ and also provide the accurate marking of the hotspots so that the users are aler
 GujaratCovid is accessible, neat, and provides clear structure of the case and presentation
 
 ## Procedure to setup project in system
-# Run this commands step by step
+### Run this commands step by step
 ```bash
 git clone https://github.com/DhruvikDonga/gujaratcovid.git
 cd gujaratcovid
