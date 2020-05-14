@@ -63,8 +63,8 @@
           <tr  v-for="patient in filteredList" :key="patient.id">
             <td>{{ patient.address }}</td>
             <td>{{ patient.name }}</td>
-            <td>{{ patient.lng }}</td>
-            <td>{{ patient.lat }}</td>
+            <td>{{ patient.longitude }}</td>
+            <td>{{ patient.latitude }}</td>
             <td><v-btn @click="editpatient(patient)">Edit</v-btn></td>
             <td><v-btn @click="deletepatient(patient.id)">Delete</v-btn></td>
           </tr>
@@ -100,27 +100,30 @@
         },
         
         methods: {
-            getpatient(page_url){
-                page_url = page_url || '/api/adminpatients';
-
-                fetch(page_url)
-                     .then(res =>res.json())
-                     .then(res=>{
-                        //console.log(res.data);
-                        this.patients = res.data;
-                     })
-            },
+          getpatient() {
+              this.$http({
+                url: `adminpatients`,
+                  method: 'GET'
+            })
+            .then((res) => {
+             // console.log(res)
+              this.patients = res.data.patients
+            }, () => {
+              this.has_error = true
+            })
+          },
             deletepatient(id) {
                 if (confirm('Are You Sure?')) {
-                fetch(`/api/patient/${id}`, {
+                this.$http({
+                  url:`/patient/${id}`, 
                 method: 'delete'
                 })
-                .then(res => res.json())
-                .then(data => {
+                .then((res) => {
                   alert('Patient Removed');
                   this.getpatient();
-              })
-              .catch(err => console.log(err));
+              },() => {
+              this.has_error = true
+            })
             }
             },
           
@@ -137,21 +140,17 @@
                                                                   //console.log(latitude,longitude),
                                                       this.patient.lat = latitude.toString(),
                                                       this.patient.lng = longitude.toString() 
-              fetch('/api/patient', {
-              method: 'post',
               
-              body: JSON.stringify(this.patient),
-              headers: {
-              'content-type': 'application/json'
-              }
-              })
-              .then(res => res.json())
-              .then(data => {
-                  this.clearForm();
-                  alert('Patient Added');
-                  this.getpatient();
-              })
-              .catch(err => console.log(err));})
+              const postData = { name: this.patient.name, address: this.patient.address,lat:this.patient.lat,lng: this.patient.lng };
+
+              this.$http
+                .post('/patient', postData)
+              .then(res => {
+              console.log(res.body);
+              this.clearForm();
+              alert('Patient Added');
+              this.getpatient();
+              });})
               }
                else {
         // Update
@@ -164,20 +163,15 @@
                                                                   //console.log(latitude,longitude),
                                                       this.patient.lat = latitude.toString(),
                                                       this.patient.lng = longitude.toString() 
-              fetch('/api/patient', {
-              method: 'put',
-              body: JSON.stringify(this.patient),
-              headers: {
-              'content-type': 'application/json'
-              }
-              })
-              .then(res => res.json())
-              .then(data => {
+              
+              this.$http
+                .put('/patient', this.patient)
+              .then(res => {
+              //console.log(res.body);
               this.clearForm();
               alert('Patient Updated');
               this.getpatient();
-            })
-            .catch(err => console.log(err));});
+              })});
           }
           },
           editpatient(patient) {

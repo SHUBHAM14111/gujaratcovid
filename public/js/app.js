@@ -3461,31 +3461,32 @@ __webpack_require__.r(__webpack_exports__);
     this.getpatient();
   },
   methods: {
-    getpatient: function getpatient(page_url) {
+    getpatient: function getpatient() {
       var _this = this;
 
-      page_url = page_url || '/api/adminpatients';
-      fetch(page_url).then(function (res) {
-        return res.json();
+      this.$http({
+        url: "adminpatients",
+        method: 'GET'
       }).then(function (res) {
-        //console.log(res.data);
-        _this.patients = res.data;
+        // console.log(res)
+        _this.patients = res.data.patients;
+      }, function () {
+        _this.has_error = true;
       });
     },
     deletepatient: function deletepatient(id) {
       var _this2 = this;
 
       if (confirm('Are You Sure?')) {
-        fetch("/api/patient/".concat(id), {
+        this.$http({
+          url: "/patient/".concat(id),
           method: 'delete'
         }).then(function (res) {
-          return res.json();
-        }).then(function (data) {
           alert('Patient Removed');
 
           _this2.getpatient();
-        })["catch"](function (err) {
-          return console.log(err);
+        }, function () {
+          _this2.has_error = true;
         });
       }
     },
@@ -3502,22 +3503,21 @@ __webpack_require__.r(__webpack_exports__);
         Vue.$geocoder.send(addressObj, function (res) {
           latitude = res.results[0].geometry.location.lat.toString(), longitude = res.results[0].geometry.location.lng.toString(), //console.log(latitude,longitude),
           _this3.patient.lat = latitude.toString(), _this3.patient.lng = longitude.toString();
-          fetch('/api/patient', {
-            method: 'post',
-            body: JSON.stringify(_this3.patient),
-            headers: {
-              'content-type': 'application/json'
-            }
-          }).then(function (res) {
-            return res.json();
-          }).then(function (data) {
+          var postData = {
+            name: _this3.patient.name,
+            address: _this3.patient.address,
+            lat: _this3.patient.lat,
+            lng: _this3.patient.lng
+          };
+
+          _this3.$http.post('/patient', postData).then(function (res) {
+            console.log(res.body);
+
             _this3.clearForm();
 
             alert('Patient Added');
 
             _this3.getpatient();
-          })["catch"](function (err) {
-            return console.log(err);
           });
         });
       } else {
@@ -3529,22 +3529,14 @@ __webpack_require__.r(__webpack_exports__);
         Vue.$geocoder.send(addressObj, function (res) {
           latitude = res.results[0].geometry.location.lat.toString(), longitude = res.results[0].geometry.location.lng.toString(), //console.log(latitude,longitude),
           _this3.patient.lat = latitude.toString(), _this3.patient.lng = longitude.toString();
-          fetch('/api/patient', {
-            method: 'put',
-            body: JSON.stringify(_this3.patient),
-            headers: {
-              'content-type': 'application/json'
-            }
-          }).then(function (res) {
-            return res.json();
-          }).then(function (data) {
+
+          _this3.$http.put('/patient', _this3.patient).then(function (res) {
+            //console.log(res.body);
             _this3.clearForm();
 
             alert('Patient Updated');
 
             _this3.getpatient();
-          })["catch"](function (err) {
-            return console.log(err);
           });
         });
       }
@@ -3804,31 +3796,32 @@ __webpack_require__.r(__webpack_exports__);
     this.getdistrict();
   },
   methods: {
-    getdistrict: function getdistrict(page_url) {
+    getdistrict: function getdistrict() {
       var _this = this;
 
-      page_url = page_url || '/api/admindistricts';
-      fetch(page_url).then(function (res) {
-        return res.json();
+      this.$http({
+        url: "admindistricts",
+        method: 'GET'
       }).then(function (res) {
-        //console.log(res.data);
-        _this.districts = res.data;
+        //console.log(res)
+        _this.districts = res.data.districts;
+      }, function () {
+        _this.has_error = true;
       });
     },
     deletedistrict: function deletedistrict(id) {
       var _this2 = this;
 
       if (confirm('Are You Sure?')) {
-        fetch("/api/district/".concat(id), {
+        this.$http({
+          url: "/district/".concat(id),
           method: 'delete'
         }).then(function (res) {
-          return res.json();
-        }).then(function (data) {
           alert('District Removed');
 
           _this2.getdistrict();
-        })["catch"](function (err) {
-          return console.log(err);
+        }, function () {
+          _this2.has_error = true;
         });
       }
     },
@@ -3837,41 +3830,40 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.edit === false) {
         // Add
-        fetch('/api/district', {
-          method: 'post',
-          body: JSON.stringify(this.district),
-          headers: {
-            'content-type': 'application/json'
-          }
-        }).then(function (res) {
-          return res.json();
-        }).then(function (data) {
+        var postData = {
+          name: this.district.name,
+          infected: this.district.infected,
+          cured: this.district.cured,
+          died: this.district.died,
+          lat: this.district.lat,
+          lng: this.district.lng
+        };
+        this.$http.post('/district', postData).then(function (res) {
+          //console.log(res.body);
           _this3.clearForm();
 
           alert('District Added');
 
           _this3.getdistrict();
-        })["catch"](function (err) {
-          return console.log(err);
         });
       } else {
         // Update
-        fetch('/api/district', {
-          method: 'put',
-          body: JSON.stringify(this.district),
-          headers: {
-            'content-type': 'application/json'
-          }
-        }).then(function (res) {
-          return res.json();
-        }).then(function (data) {
+        var _postData = {
+          patient_id: this.district.district_id,
+          name: this.district.name,
+          infected: this.district.infected,
+          cured: this.district.cured,
+          died: this.district.died,
+          lat: this.district.lat,
+          lng: this.district.lng
+        };
+        this.$http.put('/district', this.district).then(function (res) {
+          //console.log(res.body);
           _this3.clearForm();
 
           alert('District Updated');
 
           _this3.getdistrict();
-        })["catch"](function (err) {
-          return console.log(err);
         });
       }
     },
@@ -44321,9 +44313,9 @@ var render = function() {
                       _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(patient.name))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(patient.lng))]),
+                      _c("td", [_vm._v(_vm._s(patient.longitude))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(patient.lat))]),
+                      _c("td", [_vm._v(_vm._s(patient.latitude))]),
                       _vm._v(" "),
                       _c(
                         "td",

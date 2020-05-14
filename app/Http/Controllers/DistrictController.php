@@ -35,8 +35,11 @@ class DistrictController extends Controller
         $districts = District::all();
 
         //$patients = DB::select('SELECT * FROM patients');
-        return DistrictCollection::collection($districts);
-    }
+        return response()->json(
+            [
+                'status' => 'success',
+                'districts' => $districts->toArray()
+            ], 200);    }
     public function store(Request $request)
     {
         $districts = $request->isMethod('put') ? District::findOrFail($request->district_id) : new District;

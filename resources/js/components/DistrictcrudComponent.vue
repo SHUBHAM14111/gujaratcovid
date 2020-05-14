@@ -124,63 +124,59 @@
             this.getdistrict()
         },
         methods: {
-            getdistrict(page_url){
-                page_url = page_url || '/api/admindistricts';
-
-                fetch(page_url)
-                     .then(res =>res.json())
-                     .then(res=>{
-                        //console.log(res.data);
-                        this.districts = res.data;
-                     })
-            },
+            getdistrict() {
+        this.$http({
+          url: `admindistricts`,
+          method: 'GET'
+        })
+            .then((res) => {
+              //console.log(res)
+              this.districts = res.data.districts
+            }, () => {
+              this.has_error = true
+            })
+      },
+            
             deletedistrict(id) {
                 if (confirm('Are You Sure?')) {
-                fetch(`/api/district/${id}`, {
+                this.$http({
+                  url:`/district/${id}`, 
                 method: 'delete'
                 })
-                .then(res => res.json())
-                .then(data => {
+                .then((res) => {
                   alert('District Removed');
                   this.getdistrict();
-              })
-              .catch(err => console.log(err));
+              },() => {
+              this.has_error = true
+            })
             }
             },
 
           adddistrict() {
               if (this.edit === false) {
               // Add
-              fetch('/api/district', {
-              method: 'post',
-              body: JSON.stringify(this.district),
-              headers: {
-              'content-type': 'application/json'
-              }
+              const postData = { name: this.district.name, infected: this.district.infected,cured: this.district.cured,died: this.district.died,lat: this.district.lat,lng: this.district.lng };
+
+              this.$http
+                .post('/district', postData)
+              .then(res => {
+              //console.log(res.body);
+              this.clearForm();
+              alert('District Added');
+              this.getdistrict();
               })
-              .then(res => res.json())
-              .then(data => {
-                  this.clearForm();
-                  alert('District Added');
-                  this.getdistrict();
-              })
-              .catch(err => console.log(err));
               } else {
         // Update
-              fetch('/api/district', {
-              method: 'put',
-              body: JSON.stringify(this.district),
-              headers: {
-              'content-type': 'application/json'
-              }
-              })
-              .then(res => res.json())
-              .then(data => {
+              const postData = {patient_id: this.district.district_id , name: this.district.name, infected: this.district.infected,cured: this.district.cured,died: this.district.died,lat: this.district.lat,lng: this.district.lng };
+
+              this.$http
+                .put('/district', this.district)
+              .then(res => {
+              //console.log(res.body);
               this.clearForm();
               alert('District Updated');
               this.getdistrict();
-            })
-            .catch(err => console.log(err));
+              })
           }
           },
           editdistrict(district) {

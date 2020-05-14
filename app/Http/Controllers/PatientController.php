@@ -31,8 +31,11 @@ class PatientController extends Controller
        
         $patients = Patient::all();
 
-        //$patients = DB::select('SELECT * FROM patients');
-        return PatientCollection::collection($patients);
+        return response()->json(
+            [
+                'status' => 'success',
+                'patients' => $patients->toArray()
+            ], 200);    
     }
     public function store(Request $request)
     {
@@ -45,7 +48,11 @@ class PatientController extends Controller
         $patients->longitude = $request->input('lng');
 
         if($patients->save()) {
-            return new PatientCollection($patients);
+            return response()->json(
+                [
+                    'status' => 'success',
+                    'patients' => $patients->toArray()
+                ], 200); 
         }
         
     }
@@ -57,7 +64,11 @@ class PatientController extends Controller
         $patients = Patient::findOrFail($id);
 
         // Return single patient as a resource
-        return new PatientCollection($patients);
+        return response()->json(
+            [
+                'status' => 'success',
+                'patients' => $patients->toArray()
+            ], 200); 
     }
 
     
@@ -67,7 +78,11 @@ class PatientController extends Controller
         $patients = Patient::findOrFail($id);
 
         if($patients->delete()) {
-            return new PatientCollection($patients);
+            return response()->json(
+                [
+                    'status' => 'success',
+                    'patients' => $patients->toArray()
+                ], 200); 
         }    
     }
     
