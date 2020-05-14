@@ -21,15 +21,22 @@ GujaratCovid is accessible, neat, and provides clear structure of the case and p
 ```bash
 git clone https://github.com/DhruvikDonga/gujaratcovid.git
 cd gujaratcovid
+
 composer install
+
 npm install
+
 copy .env.example .env
+
 php artisan key:generate
+
 php artisan migrate
+
 php artisan db:seed   
+
 php artisan jwt:secret
 ```
-
+### Note:-admin registration is disabled so seed the user in database by seeding
 
 
 
