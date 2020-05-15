@@ -22,7 +22,7 @@ class DistrictController extends Controller
         
         //$districts = District::all();
 
-        $districts = Cache::remember('districtskey', 25, function(){
+        $districts = Cache::remember('districtskey', 60, function(){
             return District::all();
         });
       

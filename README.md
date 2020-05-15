@@ -36,8 +36,15 @@ php artisan db:seed
 
 php artisan jwt:secret
 ```
- Note:-admin registration is disabled so Admin email:-'admin@gujaratcovid.com' password:-awesome
+ Note:-admin registration is disabled so Admin details are in admin seeder
 
+ ### To start project
+
+```bash
+php artisan serve
+
+npm run watch or npm run prod
+```
 
 
 
